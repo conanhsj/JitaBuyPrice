@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JitaBuyPrice.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -154,7 +155,7 @@ namespace JitaBuyPrice
             dSkillBasePrice = Math.Min(dSmall, dBig);
             //额外15点每分钟，86400.00 s 生物学等级翻倍
             lstSeach.Add(new Objects.SearchingItem() { ItemID = "54656", Name = "标准晨曦大脑加速器", BasePrice = 15 * 1440 * 2 * dSkillBasePrice });
-            lstSeach.Add(new Objects.SearchingItem() { ItemID = "54660", Name = "五月限时大脑加速器", BasePrice = 7.5 * 720 * 2 * dSkillBasePrice });
+            lstSeach.Add(new Objects.SearchingItem() { ItemID = "54976", Name = "六月限时大脑加速器", BasePrice = 7.5 * 720 * 2 * dSkillBasePrice });
             //不吃生物学
             lstSeach.Add(new Objects.SearchingItem() { ItemID = "54812", Name = "基础型克隆飞行员之日大脑加速器", BasePrice = 6 * 1440 * dSkillBasePrice });
             lstSeach.Add(new Objects.SearchingItem() { ItemID = "54813", Name = "强效克隆飞行员之日大脑加速器", BasePrice = 12 * 1440 * dSkillBasePrice });
@@ -168,7 +169,119 @@ namespace JitaBuyPrice
 
         private void btnRecycle_Click(object sender, EventArgs e)
         {
+            OpenFileDialog diaFile = new OpenFileDialog();
+            diaFile.InitialDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+            diaFile.CheckFileExists = true;
+            diaFile.Filter = "xlsx|*.xlsx";
+            diaFile.ShowDialog();
 
+            string strFilePath = diaFile.FileName;
+
+            if (string.IsNullOrEmpty(strFilePath))
+            {
+                return;
+            }
+
+            //读取蓝图数据
+            Classes.CEVEMarketFile.ExcelOreRecycle(strFilePath);
+            //读取矿价
+            Classes.CEVEMarketAPI.SearchChart();
+            //查询用对象
+            List<Objects.SearchingItem> lstSeach = new List<Objects.SearchingItem>();
+            foreach (Objects.Ore Item in Classes.CEVEMarketFile.lstOre)
+            {
+                Objects.SearchingItem newSearch = new Objects.SearchingItem();
+                newSearch.Name = Item.Name;
+                newSearch.Volume = Item.Volume;
+                newSearch.BasePrice =
+                    Item.Tri * Classes.CEVEMarketAPI.baseChart.Tri +
+                    Item.Pye * Classes.CEVEMarketAPI.baseChart.Pye +
+                    Item.Mex * Classes.CEVEMarketAPI.baseChart.Mex +
+                    Item.Iso * Classes.CEVEMarketAPI.baseChart.Iso +
+                    Item.Noc * Classes.CEVEMarketAPI.baseChart.Noc +
+                    Item.Zyd * Classes.CEVEMarketAPI.baseChart.Zyd +
+                    Item.Meg * Classes.CEVEMarketAPI.baseChart.Meg;
+
+                newSearch.BasePrice = (newSearch.BasePrice * 0.724) / Item.Volume;
+                lstSeach.Add(newSearch);
+            }
+            //查询，设置，显示
+            Classes.CEVEMarketAPI.SearchPrice(lstSeach);
+            frmOre frmResult = new frmOre();
+            frmResult.SearchResult = Classes.CEVEMarketAPI.lstResult;
+            frmResult.ShowDialog();
+        }
+
+        private void btnDrone_Click(object sender, EventArgs e)
+        {
+            //string strBase = "0000000100000011000000110000100000000001000000110000001100001000000000010000001100000011000010000000000100000011000000110000100000000001000000110000001100001000";
+
+            string strBase = "01001010010100100010010100100011100100100100101001001000100111010101001";
+            //strBase = txtInfo.Text.Trim();
+            string strResult = "";
+            int sub = strBase.Length % 4;
+            if (sub != 0)
+            {
+                strBase = strBase.PadRight(strBase.Length + (8 - sub), '0');
+            }
+
+            for (int n = 0; n < Math.Ceiling((decimal)strBase.Length / 4); n++)
+            {
+                string strBin = strBase.Substring(n * 4, 4);
+                int Value = Convert.ToInt32(strBin, 2);
+                if(Value < 65)
+                {
+                    strResult += Value.ToString();
+                }
+                else
+                {
+                    char chString = (char)Value;
+                    strResult += chString.ToString();
+                }
+            }
+            MessageBox.Show(strResult);
+        }
+
+        private void btnT2Base_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog diaFile = new OpenFileDialog();
+            diaFile.InitialDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+            diaFile.CheckFileExists = true;
+            diaFile.Filter = "xlsx|*.xlsx";
+            diaFile.ShowDialog();
+
+            string strFilePath = diaFile.FileName;
+
+            if (string.IsNullOrEmpty(strFilePath))
+            {
+                return;
+            }
+
+            //读取蓝图数据
+            Classes.CEVEMarketFile.ExcelT2Base(strFilePath);
+
+            //查询用对象
+            List<Objects.SearchingItem> lstSeach = new List<Objects.SearchingItem>();
+            foreach (Objects.T2Base Item in Classes.CEVEMarketFile.lstT2Base)
+            {
+                Objects.SearchingItem objSearch = new Objects.SearchingItem();
+                objSearch.Name = Item.Name;
+                lstSeach.Add(objSearch);
+            }
+            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
+            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
+            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
+            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
+            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
+            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
+
+
+
+            //Classes.CEVEMarketFile.lstT2Base;
+
+            frmResultDialog frmResult = new frmResultDialog();
+            frmResult.SearchResult = Classes.CEVEMarketAPI.lstResult;
+            frmResult.ShowDialog();
         }
     }
 }

@@ -85,7 +85,6 @@ namespace JitaBuyPrice.Classes
 
         internal static void SearchChart()
         {
-
             //标准矿价收单请求接口
             string strReqPath = string.Format("https://www.ceve-market.org/api/evemon");
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(strReqPath);

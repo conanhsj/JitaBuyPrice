@@ -35,6 +35,8 @@
             this.btnMyRoom = new System.Windows.Forms.Button();
             this.btnBrain = new System.Windows.Forms.Button();
             this.btnRecycle = new System.Windows.Forms.Button();
+            this.btnDrone = new System.Windows.Forms.Button();
+            this.btnT2Base = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtInfo
@@ -42,12 +44,12 @@
             this.txtInfo.Location = new System.Drawing.Point(12, 12);
             this.txtInfo.Multiline = true;
             this.txtInfo.Name = "txtInfo";
-            this.txtInfo.Size = new System.Drawing.Size(491, 356);
+            this.txtInfo.Size = new System.Drawing.Size(452, 148);
             this.txtInfo.TabIndex = 0;
             // 
             // btnExecute
             // 
-            this.btnExecute.Location = new System.Drawing.Point(519, 345);
+            this.btnExecute.Location = new System.Drawing.Point(470, 12);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
             this.btnExecute.TabIndex = 1;
@@ -57,7 +59,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(519, 12);
+            this.btnImport.Location = new System.Drawing.Point(12, 166);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(75, 23);
             this.btnImport.TabIndex = 2;
@@ -68,7 +70,7 @@
             // lblResult
             // 
             this.lblResult.AutoSize = true;
-            this.lblResult.Location = new System.Drawing.Point(517, 53);
+            this.lblResult.Location = new System.Drawing.Point(12, 204);
             this.lblResult.Name = "lblResult";
             this.lblResult.Size = new System.Drawing.Size(53, 12);
             this.lblResult.TabIndex = 3;
@@ -76,7 +78,7 @@
             // 
             // btnMyRoom
             // 
-            this.btnMyRoom.Location = new System.Drawing.Point(519, 306);
+            this.btnMyRoom.Location = new System.Drawing.Point(470, 99);
             this.btnMyRoom.Name = "btnMyRoom";
             this.btnMyRoom.Size = new System.Drawing.Size(75, 23);
             this.btnMyRoom.TabIndex = 4;
@@ -86,7 +88,7 @@
             // 
             // btnBrain
             // 
-            this.btnBrain.Location = new System.Drawing.Point(519, 78);
+            this.btnBrain.Location = new System.Drawing.Point(470, 41);
             this.btnBrain.Name = "btnBrain";
             this.btnBrain.Size = new System.Drawing.Size(75, 23);
             this.btnBrain.TabIndex = 5;
@@ -96,7 +98,7 @@
             // 
             // btnRecycle
             // 
-            this.btnRecycle.Location = new System.Drawing.Point(519, 108);
+            this.btnRecycle.Location = new System.Drawing.Point(470, 70);
             this.btnRecycle.Name = "btnRecycle";
             this.btnRecycle.Size = new System.Drawing.Size(75, 23);
             this.btnRecycle.TabIndex = 6;
@@ -104,11 +106,33 @@
             this.btnRecycle.UseVisualStyleBackColor = true;
             this.btnRecycle.Click += new System.EventHandler(this.btnRecycle_Click);
             // 
+            // btnDrone
+            // 
+            this.btnDrone.Location = new System.Drawing.Point(93, 166);
+            this.btnDrone.Name = "btnDrone";
+            this.btnDrone.Size = new System.Drawing.Size(75, 23);
+            this.btnDrone.TabIndex = 7;
+            this.btnDrone.Text = "无人机语";
+            this.btnDrone.UseVisualStyleBackColor = true;
+            this.btnDrone.Click += new System.EventHandler(this.btnDrone_Click);
+            // 
+            // btnT2Base
+            // 
+            this.btnT2Base.Location = new System.Drawing.Point(470, 128);
+            this.btnT2Base.Name = "btnT2Base";
+            this.btnT2Base.Size = new System.Drawing.Size(75, 23);
+            this.btnT2Base.TabIndex = 8;
+            this.btnT2Base.Text = "T2原材料";
+            this.btnT2Base.UseVisualStyleBackColor = true;
+            this.btnT2Base.Click += new System.EventHandler(this.btnT2Base_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(662, 393);
+            this.ClientSize = new System.Drawing.Size(555, 231);
+            this.Controls.Add(this.btnT2Base);
+            this.Controls.Add(this.btnDrone);
             this.Controls.Add(this.btnRecycle);
             this.Controls.Add(this.btnBrain);
             this.Controls.Add(this.btnMyRoom);
@@ -132,6 +156,8 @@
         private System.Windows.Forms.Button btnMyRoom;
         private System.Windows.Forms.Button btnBrain;
         private System.Windows.Forms.Button btnRecycle;
+        private System.Windows.Forms.Button btnDrone;
+        private System.Windows.Forms.Button btnT2Base;
     }
 }
 

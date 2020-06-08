@@ -113,5 +113,11 @@ namespace JitaBuyPrice
 
             lvResult.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
+
+        private void lvResult_ItemActivate(object sender, EventArgs e)
+        {
+            ListView lvSender = (ListView)sender;
+            Clipboard.SetText(lvSender.FocusedItem.Text);
+        }
     }
 }

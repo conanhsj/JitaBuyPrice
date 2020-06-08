@@ -66,6 +66,18 @@
   <ItemGroup>
     <Compile Include="Classes\CEVEMarketAPI.cs" />
     <Compile Include="Classes\CEVEMarketFile.cs" />
+    <Compile Include="Forms\frmT2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmT2.Designer.cs">
+      <DependentUpon>frmT2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmOre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmOre.Designer.cs">
+      <DependentUpon>frmOre.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,13 +95,23 @@
     <Compile Include="Objects\Constellation.cs" />
     <Compile Include="Objects\Galaxy.cs" />
     <Compile Include="Objects\Item.cs" />
+    <Compile Include="Objects\Ore.cs" />
     <Compile Include="Objects\SearchingItem.cs" />
     <Compile Include="Objects\SearchingResult.cs" />
     <Compile Include="Objects\Segmentums.cs" />
     <Compile Include="Objects\Station.cs" />
+    <Compile Include="Objects\T2Base.cs" />
     <Compile Include="Objects\T1Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\frmT2.resx">
+      <DependentUpon>frmT2.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>frmT21.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmOre.resx">
+      <DependentUpon>frmOre.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -119,5 +141,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
