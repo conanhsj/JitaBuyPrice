@@ -229,7 +229,7 @@ namespace JitaBuyPrice
             {
                 string strBin = strBase.Substring(n * 4, 4);
                 int Value = Convert.ToInt32(strBin, 2);
-                if(Value < 65)
+                if (Value < 65)
                 {
                     strResult += Value.ToString();
                 }
@@ -242,7 +242,7 @@ namespace JitaBuyPrice
             MessageBox.Show(strResult);
         }
 
-        private void btnT2Base_Click(object sender, EventArgs e)
+        private void btnT2High_Click(object sender, EventArgs e)
         {
             OpenFileDialog diaFile = new OpenFileDialog();
             diaFile.InitialDirectory = Path.GetDirectoryName(Application.ExecutablePath);
@@ -258,28 +258,121 @@ namespace JitaBuyPrice
             }
 
             //读取蓝图数据
-            Classes.CEVEMarketFile.ExcelT2Base(strFilePath);
+            Classes.CEVEMarketFile.ExcelT2High(strFilePath);
 
             //查询用对象
             List<Objects.SearchingItem> lstSeach = new List<Objects.SearchingItem>();
-            foreach (Objects.T2Base Item in Classes.CEVEMarketFile.lstT2Base)
+
+            List<string> lstSourceName = new List<string>();
+            foreach (Objects.T2Base Item in Classes.CEVEMarketFile.lstT2High)
             {
                 Objects.SearchingItem objSearch = new Objects.SearchingItem();
                 objSearch.Name = Item.Name;
+
+                foreach (string strSourceName in Item.Items.Keys)
+                {
+                    if (!lstSourceName.Contains(strSourceName))
+                    {
+                        lstSourceName.Add(strSourceName);
+                    }
+                }
                 lstSeach.Add(objSearch);
             }
-            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
-            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
-            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
-            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
-            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
-            lstSeach.Add(new Objects.SearchingItem() { Name = "碳化晶体" });
 
+            foreach(string strName in lstSourceName)
+            {
+                lstSeach.Add(new Objects.SearchingItem() { Name = strName });
+            }
 
+            //查询，设置，显示
+            Classes.CEVEMarketAPI.SearchPrice(lstSeach);
 
-            //Classes.CEVEMarketFile.lstT2Base;
+            foreach (Objects.T2Base Item in Classes.CEVEMarketFile.lstT2High)
+            {
+                double dBasePrice = 0;
+                Objects.SearchingResult T2Item = Classes.CEVEMarketAPI.lstResult.Find(X => X.Name == Item.Name);
+                foreach (string strKeys in Item.Items.Keys)
+                {
+                    //组件
+                    Objects.SearchingResult result = Classes.CEVEMarketAPI.lstResult.Find(X => X.Name == strKeys);
+                    if (result != null)
+                    {
+                        //组件挂单价
+                        dBasePrice += double.Parse(result.Sell1) * Item.Items[strKeys];
+                    }
+                }
+                //平均成本
+                T2Item.BasePrice = dBasePrice / Item.Volume;
+            }
+            frmT2 frmResult = new frmT2();
+            frmResult.SearchResult = Classes.CEVEMarketAPI.lstResult;
+            frmResult.ShowDialog();
 
-            frmResultDialog frmResult = new frmResultDialog();
+        }
+
+        private void btnT2Work_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog diaFile = new OpenFileDialog();
+            diaFile.InitialDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+            diaFile.CheckFileExists = true;
+            diaFile.Filter = "xlsx|*.xlsx";
+            diaFile.ShowDialog();
+
+            string strFilePath = diaFile.FileName;
+
+            if (string.IsNullOrEmpty(strFilePath))
+            {
+                return;
+            }
+
+            //读取蓝图数据
+            Classes.CEVEMarketFile.ExcelT2Work(strFilePath);
+
+            //查询用对象
+            List<Objects.SearchingItem> lstSeach = new List<Objects.SearchingItem>();
+
+            List<string> lstSourceName = new List<string>();
+            foreach (Objects.T2Product Item in Classes.CEVEMarketFile.lstT2Product)
+            {
+                Objects.SearchingItem objSearch = new Objects.SearchingItem();
+                objSearch.Name = Item.Name;
+
+                foreach (string strSourceName in Item.Items.Keys)
+                {
+                    if (!lstSourceName.Contains(strSourceName))
+                    {
+                        lstSourceName.Add(strSourceName);
+                    }
+                }
+                lstSeach.Add(objSearch);
+            }
+
+            foreach (string strName in lstSourceName)
+            {
+                lstSeach.Add(new Objects.SearchingItem() { Name = strName });
+            }
+
+            //查询，设置，显示
+            Classes.CEVEMarketAPI.SearchPrice(lstSeach);
+
+            foreach (Objects.T2Product Item in Classes.CEVEMarketFile.lstT2Product)
+            {
+                double dBasePrice = 0;
+                Objects.SearchingResult T2Item = Classes.CEVEMarketAPI.lstResult.Find(X => X.Name == Item.Name);
+                foreach (string strKeys in Item.Items.Keys)
+                {
+                    //组件
+                    Objects.SearchingResult result = Classes.CEVEMarketAPI.lstResult.Find(X => X.Name == strKeys);
+                    if (result != null)
+                    {
+                        //组件挂单价
+                        dBasePrice += double.Parse(result.Sell1) * Item.Items[strKeys];
+                    }
+                }
+                //平均成本
+                T2Item.BasePrice = dBasePrice / Item.Volume;
+            }
+            frmT2 frmResult = new frmT2();
             frmResult.SearchResult = Classes.CEVEMarketAPI.lstResult;
             frmResult.ShowDialog();
         }

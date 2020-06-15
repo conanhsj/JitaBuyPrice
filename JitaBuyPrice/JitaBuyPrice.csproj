@@ -100,6 +100,7 @@
     <Compile Include="Objects\SearchingResult.cs" />
     <Compile Include="Objects\Segmentums.cs" />
     <Compile Include="Objects\Station.cs" />
+    <Compile Include="Objects\T2Product.cs" />
     <Compile Include="Objects\T2Base.cs" />
     <Compile Include="Objects\T1Product.cs" />
     <Compile Include="Program.cs" />

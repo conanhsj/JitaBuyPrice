@@ -117,7 +117,9 @@ namespace JitaBuyPrice
         private void lvResult_ItemActivate(object sender, EventArgs e)
         {
             ListView lvSender = (ListView)sender;
+            Clipboard.Clear();
             Clipboard.SetText(lvSender.FocusedItem.Text);
+           
         }
     }
 }

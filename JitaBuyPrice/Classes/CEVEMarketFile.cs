@@ -17,8 +17,9 @@ namespace JitaBuyPrice.Classes
 
         public static List<Objects.T1Product> lstT1Item = new List<Objects.T1Product>();
         public static List<Objects.Ore> lstOre = new List<Objects.Ore>();
-        public static List<Objects.T2Base> lstT2Base = new List<Objects.T2Base>();
+        public static List<Objects.T2Base> lstT2High = new List<Objects.T2Base>();
 
+        public static List<Objects.T2Product> lstT2Product = new List<Objects.T2Product>();
         public static void ExcelReader(string strPath)
         {
             Excel.XLWorkbook xFile = new Excel.XLWorkbook(strPath);
@@ -31,6 +32,27 @@ namespace JitaBuyPrice.Classes
                 }
             }
         }
+        private static void ReadItem(Excel.IXLWorksheet shSheet)
+        {
+            int nRow = 1;
+            lstItem.Clear();
+            //第一行是表头，行号从1开始
+            for (nRow = 2; shSheet.Cell(nRow, 1).GetString() != String.Empty; nRow++)
+            {
+                Objects.Item item = new Objects.Item();
+                item.TypeID = shSheet.Cell(nRow, 1).GetString();
+                item.Name = shSheet.Cell(nRow, 2).GetString();
+                item.Descript = shSheet.Cell(nRow, 3).GetString();
+                item.Category1 = shSheet.Cell(nRow, 4).GetString();
+                item.Category2 = shSheet.Cell(nRow, 5).GetString();
+                item.Category3 = shSheet.Cell(nRow, 6).GetString();
+                item.Category4 = shSheet.Cell(nRow, 7).GetString();
+                item.Category5 = shSheet.Cell(nRow, 8).GetString();
+                item.Category6 = shSheet.Cell(nRow, 9).GetString();
+                lstItem.Add(item);
+            }
+        }
+
 
         public static void ExcelWorkingReader(string strPath)
         {
@@ -42,6 +64,26 @@ namespace JitaBuyPrice.Classes
                 {
                     ReadT1Item(Isheet);
                 }
+            }
+        }
+        private static void ReadT1Item(Excel.IXLWorksheet shSheet)
+        {
+            int nRow = 1;
+            lstT1Item.Clear();
+            //第一行是表头，行号从1开始
+            for (nRow = 2; shSheet.Cell(nRow, 1).GetString() != String.Empty; nRow++)
+            {
+                Objects.T1Product item = new Objects.T1Product();
+                item.Name = shSheet.Cell(nRow, 1).GetString();
+                item.Tri = ReadDouble(shSheet.Cell(nRow, 2).GetString());
+                item.Pye = ReadDouble(shSheet.Cell(nRow, 3).GetString());
+                item.Mex = ReadDouble(shSheet.Cell(nRow, 4).GetString());
+                item.Iso = ReadDouble(shSheet.Cell(nRow, 5).GetString());
+                item.Noc = ReadDouble(shSheet.Cell(nRow, 6).GetString());
+                item.Zyd = ReadDouble(shSheet.Cell(nRow, 7).GetString());
+                item.Meg = ReadDouble(shSheet.Cell(nRow, 8).GetString());
+                item.Volume = int.Parse(shSheet.Cell(nRow, 9).GetString());
+                lstT1Item.Add(item);
             }
         }
 
@@ -57,24 +99,43 @@ namespace JitaBuyPrice.Classes
                 }
             }
         }
+        private static void ReadOreRecycle(Excel.IXLWorksheet shSheet)
+        {
+            int nRow = 1;
+            lstOre.Clear();
+            //第一行是表头，行号从1开始
+            for (nRow = 2; shSheet.Cell(nRow, 1).GetString() != String.Empty; nRow++)
+            {
+                Objects.Ore item = new Objects.Ore();
+                item.Name = shSheet.Cell(nRow, 1).GetString();
+                item.Volume = int.Parse(shSheet.Cell(nRow, 2).GetString());
+                item.Tri = ReadDouble(shSheet.Cell(nRow, 3).GetString());
+                item.Pye = ReadDouble(shSheet.Cell(nRow, 4).GetString());
+                item.Mex = ReadDouble(shSheet.Cell(nRow, 5).GetString());
+                item.Iso = ReadDouble(shSheet.Cell(nRow, 6).GetString());
+                item.Noc = ReadDouble(shSheet.Cell(nRow, 7).GetString());
+                item.Zyd = ReadDouble(shSheet.Cell(nRow, 8).GetString());
+                item.Meg = ReadDouble(shSheet.Cell(nRow, 9).GetString());
+                lstOre.Add(item);
+            }
+        }
 
-        public static void ExcelT2Base(string strPath)
+        public static void ExcelT2High(string strPath)
         {
             Excel.XLWorkbook xFile = new Excel.XLWorkbook(strPath);
 
             foreach (Excel.IXLWorksheet Isheet in xFile.Worksheets)
             {
-                if (Isheet.Name == "T2组件")
+                if (Isheet.Name == "T2高级反应")
                 {
-                    ReadT2Base(Isheet);
+                    ReadT2High(Isheet);
                 }
             }
         }
-
-        private static void ReadT2Base(Excel.IXLWorksheet shSheet)
+        private static void ReadT2High(Excel.IXLWorksheet shSheet)
         {
             int nRow = 1;
-            lstT2Base.Clear();
+            lstT2High.Clear();
             //第一行是表头，行号从1开始
             for (nRow = 2; shSheet.Cell(nRow, 1).GetString() != String.Empty; nRow++)
             {
@@ -97,81 +158,64 @@ namespace JitaBuyPrice.Classes
                 {
                     item.Items.Add(shSheet.Cell(nRow, 9).GetString(), int.Parse(shSheet.Cell(nRow, 10).GetString()));
                 }
-                lstT2Base.Add(item);
+                if (!string.IsNullOrEmpty(shSheet.Cell(nRow, 11).GetString()))
+                {
+                    item.Items.Add(shSheet.Cell(nRow, 11).GetString(), int.Parse(shSheet.Cell(nRow, 12).GetString()));
+                }
+                lstT2High.Add(item);
             }
         }
 
+        public static void ExcelT2Work(string strPath)
+        {
+            Excel.XLWorkbook xFile = new Excel.XLWorkbook(strPath);
 
-        private static void ReadOreRecycle(Excel.IXLWorksheet shSheet)
+            foreach (Excel.IXLWorksheet Isheet in xFile.Worksheets)
+            {
+                if (Isheet.Name == "T2制造")
+                {
+                    ReadT2Work(Isheet);
+                }
+            }
+        }
+        private static void ReadT2Work(Excel.IXLWorksheet shSheet)
         {
             int nRow = 1;
-            lstOre.Clear();
-            //第一行是表头，行号从1开始
-            for (nRow = 2; shSheet.Cell(nRow, 1).GetString() != String.Empty; nRow++)
+            int nCol = 1;
+            lstT2Product.Clear();
+            //第一行是产物，行号从1开始
+            for (nCol = 1; shSheet.Cell(1, nCol).GetString() != String.Empty; nCol++)
             {
-                Objects.Ore item = new Objects.Ore();
-                item.Name = shSheet.Cell(nRow, 1).GetString();
-                item.Volume = int.Parse(shSheet.Cell(nRow, 2).GetString());
-                item.Tri = ReadNumber(shSheet.Cell(nRow, 3).GetString());
-                item.Pye = ReadNumber(shSheet.Cell(nRow, 4).GetString());
-                item.Mex = ReadNumber(shSheet.Cell(nRow, 5).GetString());
-                item.Iso = ReadNumber(shSheet.Cell(nRow, 6).GetString());
-                item.Noc = ReadNumber(shSheet.Cell(nRow, 7).GetString());
-                item.Zyd = ReadNumber(shSheet.Cell(nRow, 8).GetString());
-                item.Meg = ReadNumber(shSheet.Cell(nRow, 9).GetString());
-                lstOre.Add(item);
+                nRow = 1;
+                Objects.T2Product item = new Objects.T2Product();
+                string[] strValue = shSheet.Cell(nRow, nCol).GetString().Split(new string[] { " x " }, StringSplitOptions.RemoveEmptyEntries);
+                item.Name = strValue[1];
+                item.Volume = int.Parse(strValue[0]);
+                nRow++;
+                //材料需求
+                while (!string.IsNullOrEmpty(shSheet.Cell(nRow, nCol).GetString()))
+                {
+                    strValue = shSheet.Cell(nRow, nCol).GetString().Split(new string[] { " x " }, StringSplitOptions.RemoveEmptyEntries);
+                    item.Items.Add(strValue[1], ReadInt(strValue[0]));
+                    nRow++;
+                }
+                lstT2Product.Add(item);
             }
         }
 
-        private static void ReadItem(Excel.IXLWorksheet shSheet)
-        {
-            int nRow = 1;
-            lstItem.Clear();
-            //第一行是表头，行号从1开始
-            for (nRow = 2; shSheet.Cell(nRow, 1).GetString() != String.Empty; nRow++)
-            {
-                Objects.Item item = new Objects.Item();
-                item.TypeID = shSheet.Cell(nRow, 1).GetString();
-                item.Name = shSheet.Cell(nRow, 2).GetString();
-                item.Descript = shSheet.Cell(nRow, 3).GetString();
-                item.Category1 = shSheet.Cell(nRow, 4).GetString();
-                item.Category2 = shSheet.Cell(nRow, 5).GetString();
-                item.Category3 = shSheet.Cell(nRow, 6).GetString();
-                item.Category4 = shSheet.Cell(nRow, 7).GetString();
-                item.Category5 = shSheet.Cell(nRow, 8).GetString();
-                item.Category6 = shSheet.Cell(nRow, 9).GetString();
-                lstItem.Add(item);
-            }
-        }
-
-        private static void ReadT1Item(Excel.IXLWorksheet shSheet)
-        {
-            int nRow = 1;
-            lstT1Item.Clear();
-            //第一行是表头，行号从1开始
-            for (nRow = 2; shSheet.Cell(nRow, 1).GetString() != String.Empty; nRow++)
-            {
-                Objects.T1Product item = new Objects.T1Product();
-                item.Name =shSheet.Cell(nRow, 1).GetString();
-                item.Tri = ReadNumber(shSheet.Cell(nRow, 2).GetString());
-                item.Pye = ReadNumber(shSheet.Cell(nRow, 3).GetString());
-                item.Mex = ReadNumber(shSheet.Cell(nRow, 4).GetString());
-                item.Iso = ReadNumber(shSheet.Cell(nRow, 5).GetString());
-                item.Noc = ReadNumber(shSheet.Cell(nRow, 6).GetString());
-                item.Zyd = ReadNumber(shSheet.Cell(nRow, 7).GetString());
-                item.Meg = ReadNumber(shSheet.Cell(nRow, 8).GetString());
-                item.Volume = int.Parse(shSheet.Cell(nRow, 9).GetString());
-                lstT1Item.Add(item);
-            }
-        }
-
-        private static double ReadNumber(string strCell)
+        private static double ReadDouble(string strCell)
         {
             double dRnt = 0;
             double.TryParse(strCell, out dRnt);
             return dRnt;
         }
-
+        private static int ReadInt(string strCell)
+        {
+            int dRnt = 0;
+            string strInt = strCell.Replace(',', '\0');
+            int.TryParse(strInt, out dRnt);
+            return dRnt;
+        }
 
     }
 }

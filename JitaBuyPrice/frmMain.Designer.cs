@@ -36,7 +36,8 @@
             this.btnBrain = new System.Windows.Forms.Button();
             this.btnRecycle = new System.Windows.Forms.Button();
             this.btnDrone = new System.Windows.Forms.Button();
-            this.btnT2Base = new System.Windows.Forms.Button();
+            this.btnT2High = new System.Windows.Forms.Button();
+            this.btnT2Work = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtInfo
@@ -78,7 +79,7 @@
             // 
             // btnMyRoom
             // 
-            this.btnMyRoom.Location = new System.Drawing.Point(470, 99);
+            this.btnMyRoom.Location = new System.Drawing.Point(470, 70);
             this.btnMyRoom.Name = "btnMyRoom";
             this.btnMyRoom.Size = new System.Drawing.Size(75, 23);
             this.btnMyRoom.TabIndex = 4;
@@ -88,7 +89,7 @@
             // 
             // btnBrain
             // 
-            this.btnBrain.Location = new System.Drawing.Point(470, 41);
+            this.btnBrain.Location = new System.Drawing.Point(174, 166);
             this.btnBrain.Name = "btnBrain";
             this.btnBrain.Size = new System.Drawing.Size(75, 23);
             this.btnBrain.TabIndex = 5;
@@ -98,7 +99,7 @@
             // 
             // btnRecycle
             // 
-            this.btnRecycle.Location = new System.Drawing.Point(470, 70);
+            this.btnRecycle.Location = new System.Drawing.Point(470, 41);
             this.btnRecycle.Name = "btnRecycle";
             this.btnRecycle.Size = new System.Drawing.Size(75, 23);
             this.btnRecycle.TabIndex = 6;
@@ -116,22 +117,33 @@
             this.btnDrone.UseVisualStyleBackColor = true;
             this.btnDrone.Click += new System.EventHandler(this.btnDrone_Click);
             // 
-            // btnT2Base
+            // btnT2High
             // 
-            this.btnT2Base.Location = new System.Drawing.Point(470, 128);
-            this.btnT2Base.Name = "btnT2Base";
-            this.btnT2Base.Size = new System.Drawing.Size(75, 23);
-            this.btnT2Base.TabIndex = 8;
-            this.btnT2Base.Text = "T2原材料";
-            this.btnT2Base.UseVisualStyleBackColor = true;
-            this.btnT2Base.Click += new System.EventHandler(this.btnT2Base_Click);
+            this.btnT2High.Location = new System.Drawing.Point(470, 137);
+            this.btnT2High.Name = "btnT2High";
+            this.btnT2High.Size = new System.Drawing.Size(75, 23);
+            this.btnT2High.TabIndex = 9;
+            this.btnT2High.Text = "T2材料";
+            this.btnT2High.UseVisualStyleBackColor = true;
+            this.btnT2High.Click += new System.EventHandler(this.btnT2High_Click);
+            // 
+            // btnT2Work
+            // 
+            this.btnT2Work.Location = new System.Drawing.Point(470, 108);
+            this.btnT2Work.Name = "btnT2Work";
+            this.btnT2Work.Size = new System.Drawing.Size(75, 23);
+            this.btnT2Work.TabIndex = 10;
+            this.btnT2Work.Text = "T2制造";
+            this.btnT2Work.UseVisualStyleBackColor = true;
+            this.btnT2Work.Click += new System.EventHandler(this.btnT2Work_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(555, 231);
-            this.Controls.Add(this.btnT2Base);
+            this.Controls.Add(this.btnT2Work);
+            this.Controls.Add(this.btnT2High);
             this.Controls.Add(this.btnDrone);
             this.Controls.Add(this.btnRecycle);
             this.Controls.Add(this.btnBrain);
@@ -157,7 +169,8 @@
         private System.Windows.Forms.Button btnBrain;
         private System.Windows.Forms.Button btnRecycle;
         private System.Windows.Forms.Button btnDrone;
-        private System.Windows.Forms.Button btnT2Base;
+        private System.Windows.Forms.Button btnT2High;
+        private System.Windows.Forms.Button btnT2Work;
     }
 }
 
