@@ -116,6 +116,7 @@ namespace JitaBuyPrice.Classes
                 item.Noc = ReadDouble(shSheet.Cell(nRow, 7).GetString());
                 item.Zyd = ReadDouble(shSheet.Cell(nRow, 8).GetString());
                 item.Meg = ReadDouble(shSheet.Cell(nRow, 9).GetString());
+                item.Size = ReadDouble(shSheet.Cell(nRow, 10).GetString());
                 lstOre.Add(item);
             }
         }

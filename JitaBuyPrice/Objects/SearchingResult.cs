@@ -15,6 +15,7 @@ namespace JitaBuyPrice.Objects
         string strSell1;
         string strSell1Volume;
         double strBasePrice = 0;
+        double dSize;
 
         public string Name { get => strName; set => strName = value; }
         public string Buy1 { get => strBuy1; set => strBuy1 = value; }
@@ -23,5 +24,6 @@ namespace JitaBuyPrice.Objects
         public string Sell1Volume { get => strSell1Volume; set => strSell1Volume = value; }
         public string Volume { get => strVolume; set => strVolume = value; }
         public double BasePrice { get => strBasePrice; set => strBasePrice = value; }
+        public double Size { get => dSize; set => dSize = value; }
     }
 }

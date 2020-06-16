@@ -64,7 +64,7 @@ namespace JitaBuyPrice
 
             frmResultDialog frmResult = new frmResultDialog();
             frmResult.SearchResult = Classes.CEVEMarketAPI.lstResult;
-            frmResult.ShowDialog();
+            frmResult.Show();
         }
 
         private void btnImport_Click(object sender, EventArgs e)
@@ -135,7 +135,7 @@ namespace JitaBuyPrice
 
             frmResultDialog frmResult = new frmResultDialog();
             frmResult.SearchResult = Classes.CEVEMarketAPI.lstResult;
-            frmResult.ShowDialog();
+            frmResult.Show();
         }
 
         private void btnBrain_Click(object sender, EventArgs e)
@@ -164,7 +164,7 @@ namespace JitaBuyPrice
             Classes.CEVEMarketAPI.SearchPrice(lstSeach);
             frmResultDialog frmResult = new frmResultDialog();
             frmResult.SearchResult = Classes.CEVEMarketAPI.lstResult;
-            frmResult.ShowDialog();
+            frmResult.Show();
         }
 
         private void btnRecycle_Click(object sender, EventArgs e)
@@ -203,13 +203,14 @@ namespace JitaBuyPrice
                     Item.Meg * Classes.CEVEMarketAPI.baseChart.Meg;
 
                 newSearch.BasePrice = (newSearch.BasePrice * 0.724) / Item.Volume;
+                newSearch.Size = Item.Size;
                 lstSeach.Add(newSearch);
             }
             //查询，设置，显示
             Classes.CEVEMarketAPI.SearchPrice(lstSeach);
             frmOre frmResult = new frmOre();
             frmResult.SearchResult = Classes.CEVEMarketAPI.lstResult;
-            frmResult.ShowDialog();
+            frmResult.Show();
         }
 
         private void btnDrone_Click(object sender, EventArgs e)
@@ -306,7 +307,7 @@ namespace JitaBuyPrice
             }
             frmT2 frmResult = new frmT2();
             frmResult.SearchResult = Classes.CEVEMarketAPI.lstResult;
-            frmResult.ShowDialog();
+            frmResult.Show();
 
         }
 
@@ -374,7 +375,7 @@ namespace JitaBuyPrice
             }
             frmT2 frmResult = new frmT2();
             frmResult.SearchResult = Classes.CEVEMarketAPI.lstResult;
-            frmResult.ShowDialog();
+            frmResult.Show();
         }
     }
 }

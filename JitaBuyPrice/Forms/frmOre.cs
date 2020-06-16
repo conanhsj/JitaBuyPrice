@@ -22,6 +22,7 @@ namespace JitaBuyPrice.Forms
             lvResult.Columns.Add("最低卖价", 200);
             lvResult.Columns.Add("最高买价", 200);
             lvResult.Columns.Add("72.4化矿直卖价*97.75", 200);
+            lvResult.Columns.Add("立方米价格", 200);
         }
 
         private void frmOre_Load(object sender, EventArgs e)
@@ -39,25 +40,22 @@ namespace JitaBuyPrice.Forms
                 li.SubItems.Add(string.Format("{0:N}", dBuy));
                 li.SubItems.Add(string.Format("{0:N}", (dBase).ToString("0.00")));
 
-                if (dSell == 0)
-                {
-                    continue;
-                }
+
                 //1.4倍可以搞
-                if (dSell < dBase)
+                if (dSell != 0 && dSell < dBase)
                 {
                     li.SubItems[3].BackColor = Color.Red;
-                }   
-                ////1.4倍可以搞
-                //if ((dSell / Result.BasePrice > 3))
-                //{
-                //    li.SubItems[3].BackColor = Color.Gold;
-                //}
+                }
 
-                //if ((dSell / Result.BasePrice < 0.5))
-                //{
-                //    li.SubItems[3].BackColor = Color.Green;
-                //}
+                if (Result.Size != 0)
+                {
+                    li.SubItems.Add(string.Format("{0:N}", (dBase / Result.Size).ToString("0.00")));
+                }
+                else
+                {
+                    li.SubItems.Add("");
+                }
+
                 lvResult.Items.Add(li);
             }
 

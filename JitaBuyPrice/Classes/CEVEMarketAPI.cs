@@ -76,7 +76,7 @@ namespace JitaBuyPrice.Classes
                     PriceStat.Sell1 = strSell;
                     PriceStat.Sell1Volume = strSellVolume;
                     PriceStat.BasePrice = Item.BasePrice;
-
+                    PriceStat.Size = Item.Size;
                     lstResult.Add(PriceStat);
                 }
             }
