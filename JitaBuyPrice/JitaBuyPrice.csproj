@@ -64,8 +64,34 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ESICEVEAPI.cs" />
     <Compile Include="Classes\CEVEMarketAPI.cs" />
     <Compile Include="Classes\CEVEMarketFile.cs" />
+    <Compile Include="Controls\Component1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Component1.Designer.cs">
+      <DependentUpon>Component1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListViewSort.cs" />
+    <Compile Include="Forms\frmBrave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBrave.Designer.cs">
+      <DependentUpon>frmBrave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmIce.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmIce.Designer.cs">
+      <DependentUpon>frmIce.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmT1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmT1.Designer.cs">
+      <DependentUpon>frmT1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmT2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,11 +126,23 @@
     <Compile Include="Objects\SearchingResult.cs" />
     <Compile Include="Objects\Segmentums.cs" />
     <Compile Include="Objects\Station.cs" />
+    <Compile Include="Objects\OreCommon.cs" />
     <Compile Include="Objects\T2Product.cs" />
     <Compile Include="Objects\T2Base.cs" />
     <Compile Include="Objects\T1Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\frmBrave.resx">
+      <DependentUpon>frmBrave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmIce.resx">
+      <DependentUpon>frmIce.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmT1.resx">
+      <DependentUpon>frmT1.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>frmT11.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmT2.resx">
       <DependentUpon>frmT2.cs</DependentUpon>
       <Generator>ResXFileCodeGenerator</Generator>

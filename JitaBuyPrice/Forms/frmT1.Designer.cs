@@ -1,6 +1,6 @@
 ﻿namespace JitaBuyPrice.Forms
 {
-    partial class frmT2
+    partial class frmT1
     {
         /// <summary>
         /// Required designer variable.
@@ -46,14 +46,14 @@
             this.lvResult.View = System.Windows.Forms.View.Details;
             this.lvResult.ItemActivate += new System.EventHandler(this.lvResult_ItemActivate);
             // 
-            // frmT2
+            // frmT1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(675, 303);
             this.Controls.Add(this.lvResult);
-            this.Name = "frmT2";
-            this.Text = "frmT2";
+            this.Name = "frmT1";
+            this.Text = "frmT1";
             this.Load += new System.EventHandler(this.frmOre_Load);
             this.ResumeLayout(false);
 

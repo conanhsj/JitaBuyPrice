@@ -11,18 +11,17 @@ using System.Windows.Forms;
 
 namespace JitaBuyPrice.Forms
 {
-    public partial class frmOre : Form
+    public partial class frmIce : Form
     {
         public List<SearchingResult> SearchResult;
 
-        public frmOre()
+        public frmIce()
         {
             InitializeComponent();
             lvResult.Columns.Add("名称", 200);
             lvResult.Columns.Add("最低卖价", 200);
             lvResult.Columns.Add("最高买价", 200);
             lvResult.Columns.Add("72.4化矿直卖价+97.75%税", 200);
-            lvResult.Columns.Add("立方米价格", 200);
         }
 
         private void frmOre_Load(object sender, EventArgs e)
@@ -45,15 +44,6 @@ namespace JitaBuyPrice.Forms
                 if (dSell != 0 && dSell < dBase)
                 {
                     li.SubItems[3].BackColor = Color.Red;
-                }
-
-                if (Result.Size != 0)
-                {
-                    li.SubItems.Add(string.Format("{0:N}", (dBase / Result.Size).ToString("0.00")));
-                }
-                else
-                {
-                    li.SubItems.Add("");
                 }
 
                 lvResult.Items.Add(li);

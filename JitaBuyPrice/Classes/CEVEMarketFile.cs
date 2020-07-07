@@ -17,9 +17,13 @@ namespace JitaBuyPrice.Classes
 
         public static List<Objects.T1Product> lstT1Item = new List<Objects.T1Product>();
         public static List<Objects.Ore> lstOre = new List<Objects.Ore>();
+        public static List<Objects.OreCommon> lstOreCommon = new List<Objects.OreCommon>();
         public static List<Objects.T2Base> lstT2High = new List<Objects.T2Base>();
 
         public static List<Objects.T2Product> lstT2Product = new List<Objects.T2Product>();
+
+        public static List<Objects.T2Product> lstP4Break = new List<Objects.T2Product>();
+
         public static void ExcelReader(string strPath)
         {
             Excel.XLWorkbook xFile = new Excel.XLWorkbook(strPath);
@@ -52,7 +56,6 @@ namespace JitaBuyPrice.Classes
                 lstItem.Add(item);
             }
         }
-
 
         public static void ExcelWorkingReader(string strPath)
         {
@@ -121,6 +124,56 @@ namespace JitaBuyPrice.Classes
             }
         }
 
+        public static void ExcelIceChart(string strPath)
+        {
+            Excel.XLWorkbook xFile = new Excel.XLWorkbook(strPath);
+
+            foreach (Excel.IXLWorksheet Isheet in xFile.Worksheets)
+            {
+                if (Isheet.Name == "冰矿")
+                {
+                    ReadIceChart(Isheet);
+                }
+            }
+        }
+
+        public static void ExcelMoonChart(string strPath)
+        {
+            Excel.XLWorkbook xFile = new Excel.XLWorkbook(strPath);
+
+            foreach (Excel.IXLWorksheet Isheet in xFile.Worksheets)
+            {
+                if (Isheet.Name == "卫星矿")
+                {
+                    ReadIceChart(Isheet);
+                }
+            }
+        }
+
+        private static void ReadIceChart(Excel.IXLWorksheet shSheet)
+        {
+            int nRow = 1;
+            int nCol = 1;
+            lstOreCommon.Clear();
+            //第一行是产物，行号从1开始
+            for (nCol = 1; shSheet.Cell(1, nCol).GetString() != String.Empty; nCol++)
+            {
+                nRow = 1;
+                Objects.OreCommon item = new Objects.OreCommon();
+                item.Name = shSheet.Cell(nRow, nCol).GetString();
+                item.Volume = 1;
+                nRow++;
+                //产出材料
+                while (!string.IsNullOrEmpty(shSheet.Cell(nRow, nCol).GetString()))
+                {
+                    string[] strValue = shSheet.Cell(nRow, nCol).GetString().Split(new string[] { " (" }, StringSplitOptions.RemoveEmptyEntries);
+                    double dCount = ReadDouble(strValue[1].Substring(0, strValue[1].IndexOf("个")));
+                    item.Items.Add(strValue[0], (int)dCount);
+                    nRow++;
+                }
+                lstOreCommon.Add(item);
+            }
+        }
         public static void ExcelT2High(string strPath)
         {
             Excel.XLWorkbook xFile = new Excel.XLWorkbook(strPath);
@@ -204,16 +257,55 @@ namespace JitaBuyPrice.Classes
             }
         }
 
+        public static void ExcelP4Break(string strPath)
+        {
+            Excel.XLWorkbook xFile = new Excel.XLWorkbook(strPath);
+
+            foreach (Excel.IXLWorksheet Isheet in xFile.Worksheets)
+            {
+                if (Isheet.Name == "P4碎铁")
+                {
+                    ReadP4Break(Isheet);
+                }
+            }
+        }
+        private static void ReadP4Break(Excel.IXLWorksheet shSheet)
+        {
+            int nRow = 1;
+            int nCol = 1;
+            lstP4Break.Clear();
+            //第一行是产物，行号从1开始
+            for (nCol = 1; shSheet.Cell(1, nCol).GetString() != String.Empty; nCol++)
+            {
+                nRow = 1;
+                Objects.T2Product item = new Objects.T2Product();
+                item.Name = shSheet.Cell(nRow, nCol).GetString();
+                item.Volume = 1;
+                nRow++;
+                //产出材料
+                while (!string.IsNullOrEmpty(shSheet.Cell(nRow, nCol).GetString()))
+                {
+                    string[] strValue = shSheet.Cell(nRow, nCol).GetString().Split(new string[] { " (" }, StringSplitOptions.RemoveEmptyEntries);
+                    double dCount = ReadDouble(strValue[1].Substring(0, strValue[1].IndexOf("个")));
+                    dCount = Math.Floor(dCount * 0.55);
+                    item.Items.Add(strValue[0], (int)dCount);
+                    nRow++;
+                }
+                lstP4Break.Add(item);
+            }
+        }
+
         private static double ReadDouble(string strCell)
         {
             double dRnt = 0;
+            strCell = strCell.Replace(",", "");
             double.TryParse(strCell, out dRnt);
             return dRnt;
         }
         private static int ReadInt(string strCell)
         {
             int dRnt = 0;
-            string strInt = strCell.Replace(',', '\0');
+            string strInt = strCell.Replace(",", "");
             int.TryParse(strInt, out dRnt);
             return dRnt;
         }

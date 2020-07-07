@@ -1,6 +1,6 @@
 ﻿namespace JitaBuyPrice.Forms
 {
-    partial class frmT2
+    partial class frmBrave
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.lvResult = new System.Windows.Forms.ListView();
+            this.lblResult = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lvResult
@@ -38,29 +39,39 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvResult.FullRowSelect = true;
-            this.lvResult.Location = new System.Drawing.Point(12, 12);
+            this.lvResult.Location = new System.Drawing.Point(12, 42);
             this.lvResult.Name = "lvResult";
-            this.lvResult.Size = new System.Drawing.Size(651, 279);
+            this.lvResult.Size = new System.Drawing.Size(651, 380);
             this.lvResult.TabIndex = 1;
             this.lvResult.UseCompatibleStateImageBehavior = false;
             this.lvResult.View = System.Windows.Forms.View.Details;
-            this.lvResult.ItemActivate += new System.EventHandler(this.lvResult_ItemActivate);
             // 
-            // frmT2
+            // lblResult
+            // 
+            this.lblResult.AutoSize = true;
+            this.lblResult.Location = new System.Drawing.Point(12, 9);
+            this.lblResult.Name = "lblResult";
+            this.lblResult.Size = new System.Drawing.Size(0, 12);
+            this.lblResult.TabIndex = 2;
+            // 
+            // frmBrave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(675, 303);
+            this.ClientSize = new System.Drawing.Size(675, 434);
+            this.Controls.Add(this.lblResult);
             this.Controls.Add(this.lvResult);
-            this.Name = "frmT2";
-            this.Text = "frmT2";
-            this.Load += new System.EventHandler(this.frmOre_Load);
+            this.Name = "frmBrave";
+            this.Text = "frmBrave";
+            this.Load += new System.EventHandler(this.frmBrave_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.ListView lvResult;
+        private System.Windows.Forms.Label lblResult;
     }
 }
