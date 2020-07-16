@@ -20,10 +20,12 @@ namespace JitaBuyPrice.Controls
             string strValueX = ((ListViewItem)x).SubItems[nColIndex].Text;
             string strValueY = ((ListViewItem)y).SubItems[nColIndex].Text;
 
-            if(ReadDouble(strValueX) > 0)
+            double dValueX = ReadDouble(strValueX);
+            double dValueY = ReadDouble(strValueY);
+            if (dValueX != 0)
             {
-                double tempInt = ReadDouble(strValueX) - ReadDouble(strValueY);
-                return -(int)tempInt;
+                bool tempInt = dValueX > dValueY;
+                return tempInt ? -1 : 1;
             }
             else
             {
