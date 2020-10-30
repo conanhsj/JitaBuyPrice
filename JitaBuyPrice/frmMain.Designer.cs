@@ -39,6 +39,7 @@
             this.btnP4 = new System.Windows.Forms.Button();
             this.btnIceChart = new System.Windows.Forms.Button();
             this.btnMoon = new System.Windows.Forms.Button();
+            this.btnT2Line = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMyRoom
@@ -150,11 +151,22 @@
             this.btnMoon.UseVisualStyleBackColor = true;
             this.btnMoon.Click += new System.EventHandler(this.btnMoon_Click);
             // 
+            // btnT2Line
+            // 
+            this.btnT2Line.Location = new System.Drawing.Point(123, 177);
+            this.btnT2Line.Name = "btnT2Line";
+            this.btnT2Line.Size = new System.Drawing.Size(75, 23);
+            this.btnT2Line.TabIndex = 16;
+            this.btnT2Line.Text = "T2Line";
+            this.btnT2Line.UseVisualStyleBackColor = true;
+            this.btnT2Line.Click += new System.EventHandler(this.btnT2Line_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(418, 212);
+            this.Controls.Add(this.btnT2Line);
             this.Controls.Add(this.btnMoon);
             this.Controls.Add(this.btnIceChart);
             this.Controls.Add(this.btnP4);
@@ -186,6 +198,7 @@
         private System.Windows.Forms.Button btnP4;
         private System.Windows.Forms.Button btnIceChart;
         private System.Windows.Forms.Button btnMoon;
+        private System.Windows.Forms.Button btnT2Line;
     }
 }
 

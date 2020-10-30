@@ -9,7 +9,7 @@ namespace JitaBuyPrice.Objects
     public class SearchingItem
     {
         string strName;
-        int nVolume = 1;
+        int nVolume = 0;
         string strCategory;
         string strItemID;
         double dBasePrice;

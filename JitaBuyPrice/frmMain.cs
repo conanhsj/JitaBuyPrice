@@ -553,5 +553,11 @@ namespace JitaBuyPrice
             frmResult.SearchResult = Classes.CEVEMarketAPI.lstResult;
             frmResult.Show();
         }
+
+        private void btnT2Line_Click(object sender, EventArgs e)
+        {
+            frmT2Line frmResult = new frmT2Line();
+            frmResult.Show();
+        }
     }
 }
