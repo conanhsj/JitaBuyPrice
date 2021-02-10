@@ -559,5 +559,42 @@ namespace JitaBuyPrice
             frmT2Line frmResult = new frmT2Line();
             frmResult.Show();
         }
+
+        private void btnSalvage_Click(object sender, EventArgs e)
+        {
+            frmSalvage frmResult = new frmSalvage();
+            frmResult.Show();
+        }
+
+        private void btnBusiness_Click(object sender, EventArgs e)
+        {
+            frmBusiness frmResult = new frmBusiness();
+            frmResult.Show();
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            string strLogOff = "https://login.evepc.163.com/account/logoff";
+
+            string strLogIn = "https://reg.163.com/open/oauth2/authorize.do?state=RZ4AxgK7v67Od9V2ewtnWflq7G8MaJ2v&" +
+            "redirect_uri=https%3A%2F%2Fmpay-web.g.mkey.163.com%2Flogin%2Foauth2%2Freverify%2Fcheck%3Fgame_id%3Daecfu6bgiuaaaal2-g-ma79&" + "response_type=code&client_id=7014295958";
+
+            string strSSO = "https://login.evepc.163.com/account/characterselection?state=64c09364-8fc7-4beb-a5f2-8d662de2fcc0";
+            string strESI = "https://login.evepc.163.com/account/characterselection?state=4951407a-b165-48c7-8801-ee543cdcca2f";
+
+            string strSSOConfrim = "https://login.evepc.163.com/v2/oauth/authorizeapp?state=64c09364-8fc7-4beb-a5f2-8d662de2fcc0";
+
+            string strSample = "https://login.evepc.163.com/account/logoff?" +
+                "returnUrl=%2Fv2%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26redirect_uri%3Dhttps%253A%252F%252Fesi.evepc.163.com%252Fui%252Foauth2-redirect.html%26client_id%3Dbc90aa496a404724a93f41b4f4e97761%26scope%3Desi-killmails.read_killmails.v1%2520esi-ui.open_window.v1%2520esi-ui.write_waypoint.v1%2520esi-fittings.write_fittings.v1%26state%3DsyJGfN6X%26code_challenge%3DO6Z_1ydtFGh6Naat3cXA62fyBx-BC806ZYxtzcM2BFU%26code_challenge_method%3DS256%26device_id%3Dkb_ceve_market";
+
+            string strSampleDecode = "https://login.evepc.163.com/account/logoff?returnUrl=/v2/oauth/authorize?response_type=code&redirect_uri=https%3A%2F%2Fesi.evepc.163.com%2Fui%2Foauth2-redirect.html&client_id=bc90aa496a404724a93f41b4f4e97761&scope=esi-killmails.read_killmails.v1%20esi-ui.open_window.v1%20esi-ui.write_waypoint.v1%20esi-fittings.write_fittings.v1&state=syJGfN6X&code_challenge=O6Z_1ydtFGh6Naat3cXA62fyBx-BC806ZYxtzcM2BFU&code_challenge_method=S256&device_id=kb_ceve_market";
+
+        }
+
+        private void btnShips_Click(object sender, EventArgs e)
+        {
+            frmShips frmResult = new frmShips();
+            frmResult.Show();
+        }
     }
 }

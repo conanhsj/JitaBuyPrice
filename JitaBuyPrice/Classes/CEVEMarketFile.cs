@@ -17,9 +17,9 @@ namespace JitaBuyPrice.Classes
 
         public static List<Objects.T1Product> lstT1Item = new List<Objects.T1Product>();
         public static List<Objects.Ore> lstOre = new List<Objects.Ore>();
+
         public static List<Objects.OreCommon> lstOreCommon = new List<Objects.OreCommon>();
         public static List<Objects.T2Base> lstT2High = new List<Objects.T2Base>();
-
         public static List<Objects.T2Product> lstT2Product = new List<Objects.T2Product>();
 
         public static List<Objects.T2Product> lstP4Break = new List<Objects.T2Product>();

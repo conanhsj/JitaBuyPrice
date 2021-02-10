@@ -29,13 +29,16 @@
         private void InitializeComponent()
         {
             this.btnLoad = new System.Windows.Forms.Button();
-            this.lblNumber = new System.Windows.Forms.Label();
+            this.lblT2CopyRate = new System.Windows.Forms.Label();
             this.cmbT2Copy = new System.Windows.Forms.ComboBox();
             this.lvBase = new System.Windows.Forms.ListView();
             this.lvHigher = new System.Windows.Forms.ListView();
             this.lvLower = new System.Windows.Forms.ListView();
             this.lvMoon = new System.Windows.Forms.ListView();
             this.btnOutput = new System.Windows.Forms.Button();
+            this.txtT2Rate = new System.Windows.Forms.TextBox();
+            this.lblComRate = new System.Windows.Forms.Label();
+            this.txtComRate = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnLoad
@@ -48,14 +51,14 @@
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
-            // lblNumber
+            // lblT2CopyRate
             // 
-            this.lblNumber.AutoSize = true;
-            this.lblNumber.Location = new System.Drawing.Point(250, 41);
-            this.lblNumber.Name = "lblNumber";
-            this.lblNumber.Size = new System.Drawing.Size(29, 12);
-            this.lblNumber.TabIndex = 1;
-            this.lblNumber.Text = "件数";
+            this.lblT2CopyRate.AutoSize = true;
+            this.lblT2CopyRate.Location = new System.Drawing.Point(232, 44);
+            this.lblT2CopyRate.Name = "lblT2CopyRate";
+            this.lblT2CopyRate.Size = new System.Drawing.Size(78, 12);
+            this.lblT2CopyRate.TabIndex = 1;
+            this.lblT2CopyRate.Text = "T2图材料效率";
             // 
             // cmbT2Copy
             // 
@@ -128,18 +131,46 @@
             this.btnOutput.UseVisualStyleBackColor = true;
             this.btnOutput.Click += new System.EventHandler(this.btnOutput_Click);
             // 
+            // txtT2Rate
+            // 
+            this.txtT2Rate.Location = new System.Drawing.Point(316, 41);
+            this.txtT2Rate.Name = "txtT2Rate";
+            this.txtT2Rate.Size = new System.Drawing.Size(29, 19);
+            this.txtT2Rate.TabIndex = 9;
+            this.txtT2Rate.Text = "2";
+            // 
+            // lblComRate
+            // 
+            this.lblComRate.AutoSize = true;
+            this.lblComRate.Location = new System.Drawing.Point(389, 44);
+            this.lblComRate.Name = "lblComRate";
+            this.lblComRate.Size = new System.Drawing.Size(53, 12);
+            this.lblComRate.TabIndex = 10;
+            this.lblComRate.Text = "组件效率";
+            // 
+            // txtComRate
+            // 
+            this.txtComRate.Location = new System.Drawing.Point(460, 41);
+            this.txtComRate.Name = "txtComRate";
+            this.txtComRate.Size = new System.Drawing.Size(41, 19);
+            this.txtComRate.TabIndex = 11;
+            this.txtComRate.Text = "10";
+            // 
             // frmT2Line
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(947, 511);
+            this.Controls.Add(this.txtComRate);
+            this.Controls.Add(this.lblComRate);
+            this.Controls.Add(this.txtT2Rate);
             this.Controls.Add(this.btnOutput);
             this.Controls.Add(this.lvMoon);
             this.Controls.Add(this.lvLower);
             this.Controls.Add(this.lvHigher);
             this.Controls.Add(this.lvBase);
             this.Controls.Add(this.cmbT2Copy);
-            this.Controls.Add(this.lblNumber);
+            this.Controls.Add(this.lblT2CopyRate);
             this.Controls.Add(this.btnLoad);
             this.Name = "frmT2Line";
             this.Text = "frmT2Line";
@@ -152,12 +183,15 @@
         #endregion
 
         private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.Label lblNumber;
+        private System.Windows.Forms.Label lblT2CopyRate;
         private System.Windows.Forms.ComboBox cmbT2Copy;
         private System.Windows.Forms.ListView lvBase;
         private System.Windows.Forms.ListView lvHigher;
         private System.Windows.Forms.ListView lvLower;
         private System.Windows.Forms.ListView lvMoon;
         private System.Windows.Forms.Button btnOutput;
+        private System.Windows.Forms.TextBox txtT2Rate;
+        private System.Windows.Forms.Label lblComRate;
+        private System.Windows.Forms.TextBox txtComRate;
     }
 }

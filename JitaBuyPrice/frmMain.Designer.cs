@@ -34,12 +34,15 @@
             this.btnDrone = new System.Windows.Forms.Button();
             this.btnT2High = new System.Windows.Forms.Button();
             this.btnT2Work = new System.Windows.Forms.Button();
-            this.lblCharaID = new System.Windows.Forms.Label();
             this.btnAPICharaID = new System.Windows.Forms.Button();
             this.btnP4 = new System.Windows.Forms.Button();
             this.btnIceChart = new System.Windows.Forms.Button();
             this.btnMoon = new System.Windows.Forms.Button();
             this.btnT2Line = new System.Windows.Forms.Button();
+            this.btnSalvage = new System.Windows.Forms.Button();
+            this.btnBusiness = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.btnShips = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMyRoom
@@ -74,7 +77,7 @@
             // 
             // btnDrone
             // 
-            this.btnDrone.Location = new System.Drawing.Point(331, 177);
+            this.btnDrone.Location = new System.Drawing.Point(364, 93);
             this.btnDrone.Name = "btnDrone";
             this.btnDrone.Size = new System.Drawing.Size(75, 23);
             this.btnDrone.TabIndex = 7;
@@ -102,18 +105,9 @@
             this.btnT2Work.UseVisualStyleBackColor = true;
             this.btnT2Work.Click += new System.EventHandler(this.btnT2Work_Click);
             // 
-            // lblCharaID
-            // 
-            this.lblCharaID.AutoSize = true;
-            this.lblCharaID.Location = new System.Drawing.Point(329, 17);
-            this.lblCharaID.Name = "lblCharaID";
-            this.lblCharaID.Size = new System.Drawing.Size(40, 12);
-            this.lblCharaID.TabIndex = 11;
-            this.lblCharaID.Text = "角色ID";
-            // 
             // btnAPICharaID
             // 
-            this.btnAPICharaID.Location = new System.Drawing.Point(331, 37);
+            this.btnAPICharaID.Location = new System.Drawing.Point(364, 52);
             this.btnAPICharaID.Name = "btnAPICharaID";
             this.btnAPICharaID.Size = new System.Drawing.Size(75, 23);
             this.btnAPICharaID.TabIndex = 12;
@@ -153,7 +147,7 @@
             // 
             // btnT2Line
             // 
-            this.btnT2Line.Location = new System.Drawing.Point(123, 177);
+            this.btnT2Line.Location = new System.Drawing.Point(252, 12);
             this.btnT2Line.Name = "btnT2Line";
             this.btnT2Line.Size = new System.Drawing.Size(75, 23);
             this.btnT2Line.TabIndex = 16;
@@ -161,17 +155,60 @@
             this.btnT2Line.UseVisualStyleBackColor = true;
             this.btnT2Line.Click += new System.EventHandler(this.btnT2Line_Click);
             // 
+            // btnSalvage
+            // 
+            this.btnSalvage.Location = new System.Drawing.Point(252, 52);
+            this.btnSalvage.Name = "btnSalvage";
+            this.btnSalvage.Size = new System.Drawing.Size(75, 23);
+            this.btnSalvage.TabIndex = 17;
+            this.btnSalvage.Text = "打捞件";
+            this.btnSalvage.UseVisualStyleBackColor = true;
+            this.btnSalvage.Click += new System.EventHandler(this.btnSalvage_Click);
+            // 
+            // btnBusiness
+            // 
+            this.btnBusiness.Location = new System.Drawing.Point(252, 93);
+            this.btnBusiness.Name = "btnBusiness";
+            this.btnBusiness.Size = new System.Drawing.Size(75, 23);
+            this.btnBusiness.TabIndex = 18;
+            this.btnBusiness.Text = "商业";
+            this.btnBusiness.UseVisualStyleBackColor = true;
+            this.btnBusiness.Click += new System.EventHandler(this.btnBusiness_Click);
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Location = new System.Drawing.Point(364, 12);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.TabIndex = 19;
+            this.btnLogin.Text = "ESI";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // btnShips
+            // 
+            this.btnShips.Location = new System.Drawing.Point(252, 137);
+            this.btnShips.Name = "btnShips";
+            this.btnShips.Size = new System.Drawing.Size(75, 23);
+            this.btnShips.TabIndex = 20;
+            this.btnShips.Text = "小卖部";
+            this.btnShips.UseVisualStyleBackColor = true;
+            this.btnShips.Click += new System.EventHandler(this.btnShips_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(418, 212);
+            this.ClientSize = new System.Drawing.Size(489, 230);
+            this.Controls.Add(this.btnShips);
+            this.Controls.Add(this.btnLogin);
+            this.Controls.Add(this.btnBusiness);
+            this.Controls.Add(this.btnSalvage);
             this.Controls.Add(this.btnT2Line);
             this.Controls.Add(this.btnMoon);
             this.Controls.Add(this.btnIceChart);
             this.Controls.Add(this.btnP4);
             this.Controls.Add(this.btnAPICharaID);
-            this.Controls.Add(this.lblCharaID);
             this.Controls.Add(this.btnT2Work);
             this.Controls.Add(this.btnT2High);
             this.Controls.Add(this.btnDrone);
@@ -182,7 +219,6 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -193,12 +229,15 @@
         private System.Windows.Forms.Button btnDrone;
         private System.Windows.Forms.Button btnT2High;
         private System.Windows.Forms.Button btnT2Work;
-        private System.Windows.Forms.Label lblCharaID;
         private System.Windows.Forms.Button btnAPICharaID;
         private System.Windows.Forms.Button btnP4;
         private System.Windows.Forms.Button btnIceChart;
         private System.Windows.Forms.Button btnMoon;
         private System.Windows.Forms.Button btnT2Line;
+        private System.Windows.Forms.Button btnSalvage;
+        private System.Windows.Forms.Button btnBusiness;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Button btnShips;
     }
 }
 

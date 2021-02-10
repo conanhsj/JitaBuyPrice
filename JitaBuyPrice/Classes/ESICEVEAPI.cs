@@ -15,7 +15,7 @@ namespace JitaBuyPrice.Classes
     public static class ESICEVEAPI
     {
 
-        public static List<string> lstAssets = new List<string>();
+        public static List<ESIAssets> lstAssets = new List<ESIAssets>();
  
 
         //https://shimo.im/docs/DhCG9tWHtjVyTqwc/read
@@ -55,27 +55,92 @@ namespace JitaBuyPrice.Classes
             //chrome
             System.Diagnostics.Process.Start("chrome.exe", url);
         }
+
+        public static List<string> lstLostTypeId = new List<string>();
         public static void ReadAssets(string strUserID, string strAccessToken)
         {
-
-            //请求
-            string strReqPath = string.Format("https://esi.evepc.163.com/latest/characters/{0}/assets/?datasource=serenity&page=1&token={1}", strUserID, strAccessToken);
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(strReqPath);
-            request.Method = "GET";
             lstAssets.Clear();
-            using (WebResponse response = request.GetResponse())
+            try
             {
+                for (int page = 1; ; page++)
+                {
+                    //请求
+                    string strReqPath = string.Format("https://esi.evepc.163.com/latest/characters/{0}/assets/?datasource=serenity&page={1}&token={2}", strUserID, page.ToString(), strAccessToken);
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(strReqPath);
+                    request.Method = "GET";
+                    using (WebResponse response = request.GetResponse())
+                    {
 
-                Stream stream = response.GetResponseStream();
-                StreamReader sr = new StreamReader(stream);
-                //JsonTextReader jsonReader = new JsonTextReader(sr);
-                string strJson = sr.ReadToEnd();
-                strJson = strJson.Trim('[', ']');
-                XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode(strJson);
-                XmlNode rootNode = xmlDoc.SelectSingleNode("character");
+                        Stream stream = response.GetResponseStream();
+                        StreamReader sr = new StreamReader(stream);
+                        //JsonTextReader jsonReader = new JsonTextReader(sr);
+                        string strJson = sr.ReadToEnd();
+                        //strJson = strJson.Trim('[', ']');
+                        //XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode(strJson);
+                        List<ESIAssets> lstAllAsset = JsonConvert.DeserializeObject<List<ESIAssets>>(strJson);
 
-                lstAssets.Add(rootNode.SelectSingleNode("").InnerText);
+                        foreach (ESIAssets Asset in lstAllAsset)
+                        {
+                            Item item = CEVEMarketFile.lstItem.Find(obj => obj.TypeID == Asset.type_id);
+
+                            if (item == null)
+                            {
+                                lstLostTypeId.Add(Asset.type_id);
+                                continue;
+                            }
+
+                            if (item.Name.Contains("蓝图"))
+                            {
+                                Asset.item_Name = item.Name;
+                                lstAssets.Add(Asset);
+                            }
+
+                        }
+
+                        //遍历完成
+                        if(lstAllAsset.Count != 1000)
+                        {
+                            break;
+                        }
+                    }
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public static List<string> ReadMarketTypeID(string regionID)
+        {
+            List<string> lstTypeID = new List<string>();
+            for (int page = 1; ; page++)
+            {
+                //请求
+                string strReqPath = string.Format("https://esi.evepc.163.com/latest/markets/{0}/types/?datasource=serenity&page={1}", regionID, page);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(strReqPath);
+                request.Method = "GET";
+                using (WebResponse response = request.GetResponse())
+                {
+
+                    Stream stream = response.GetResponseStream();
+                    StreamReader sr = new StreamReader(stream);
+                    //JsonTextReader jsonReader = new JsonTextReader(sr);
+                    string strJson = sr.ReadToEnd();
+                    //strJson = strJson.Trim('[', ']');
+                    //XmlDocument xmlDoc = JsonConvert.DeserializeXmlNode(strJson);
+                    List<string> lstTypeIDPage = JsonConvert.DeserializeObject<List<string>>(strJson);
+
+                    lstTypeID.AddRange(lstTypeIDPage);
+                    //遍历完成
+                    if (lstTypeIDPage.Count != 1000)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return lstTypeID;
         }
     }
 }

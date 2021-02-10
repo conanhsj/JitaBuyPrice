@@ -62,17 +62,15 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="YamlDotNet, Version=9.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.9.1.4\lib\net45\YamlDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ESICEVEAPI.cs" />
     <Compile Include="Classes\CEVEMarketAPI.cs" />
     <Compile Include="Classes\CEVEMarketFile.cs" />
-    <Compile Include="Controls\Component1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Component1.Designer.cs">
-      <DependentUpon>Component1.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Commons.cs" />
     <Compile Include="Controls\ListViewSort.cs" />
     <Compile Include="Forms\frmBrave.cs">
       <SubType>Form</SubType>
@@ -80,11 +78,35 @@
     <Compile Include="Forms\frmBrave.Designer.cs">
       <DependentUpon>frmBrave.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmBusiness.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBusiness.Designer.cs">
+      <DependentUpon>frmBusiness.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmIce.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmIce.Designer.cs">
       <DependentUpon>frmIce.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLoginESI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLoginESI.Designer.cs">
+      <DependentUpon>frmLoginESI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSalvage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSalvage.Designer.cs">
+      <DependentUpon>frmSalvage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmShips.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmShips.Designer.cs">
+      <DependentUpon>frmShips.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmT1.cs">
       <SubType>Form</SubType>
@@ -104,6 +126,12 @@
     <Compile Include="Forms\frmOre.Designer.cs">
       <DependentUpon>frmOre.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmT2Line.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmT2Line.Designer.cs">
+      <DependentUpon>frmT2Line.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,15 +144,25 @@
     <Compile Include="frmResultDialog.Designer.cs">
       <DependentUpon>frmResultDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\FilesHelper.cs" />
+    <Compile Include="Helper\SdeFileReader.cs" />
+    <Compile Include="ObjectsJson\Price.cs" />
+    <Compile Include="ObjectsJson\PriceInfo.cs" />
+    <Compile Include="ObjectsYaml\MaterialsInfo.cs" />
+    <Compile Include="Objects\ESIAssets.cs" />
     <Compile Include="Objects\IceChart.cs" />
     <Compile Include="Objects\BriefChart.cs" />
     <Compile Include="Objects\Constellation.cs" />
     <Compile Include="Objects\Galaxy.cs" />
     <Compile Include="Objects\Item.cs" />
+    <Compile Include="ObjectsYaml\Materials.cs" />
     <Compile Include="Objects\Ore.cs" />
+    <Compile Include="Objects\Reaction.cs" />
+    <Compile Include="Objects\Regions.cs" />
     <Compile Include="Objects\SearchingItem.cs" />
     <Compile Include="Objects\SearchingResult.cs" />
     <Compile Include="Objects\Segmentums.cs" />
+    <Compile Include="Objects\Ships.cs" />
     <Compile Include="Objects\Station.cs" />
     <Compile Include="Objects\OreCommon.cs" />
     <Compile Include="Objects\T2Product.cs" />
@@ -135,8 +173,20 @@
     <EmbeddedResource Include="Forms\frmBrave.resx">
       <DependentUpon>frmBrave.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBusiness.resx">
+      <DependentUpon>frmBusiness.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmIce.resx">
       <DependentUpon>frmIce.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLoginESI.resx">
+      <DependentUpon>frmLoginESI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSalvage.resx">
+      <DependentUpon>frmSalvage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmShips.resx">
+      <DependentUpon>frmShips.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmT1.resx">
       <DependentUpon>frmT1.cs</DependentUpon>
@@ -150,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmOre.resx">
       <DependentUpon>frmOre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmT2Line.resx">
+      <DependentUpon>frmT2Line.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

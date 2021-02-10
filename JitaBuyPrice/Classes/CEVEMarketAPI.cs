@@ -7,7 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using JitaBuyPrice.Helper;
 using JitaBuyPrice.Objects;
+using JitaBuyPrice.ObjectsJson;
+using Newtonsoft.Json;
+
 namespace JitaBuyPrice.Classes
 {
     public static class CEVEMarketAPI
@@ -108,7 +112,7 @@ namespace JitaBuyPrice.Classes
                 baseChart.Meg = double.Parse(xmlDoc.SelectSingleNode("minerals/mineral[name/text()='超噬矿']/price").InnerText);
             }
 
-            //冰矿请求
+            OutputJitaMinePrice();
             //16272   重水
             //16273   液化臭氧
             //16275   锶包合物
@@ -140,5 +144,49 @@ namespace JitaBuyPrice.Classes
             }
 
         }
+
+        private static void OutputJitaMinePrice()
+        {
+            List<Item> lstBaseChart = new List<Item>();
+            lstBaseChart.Add(new Item() { Name = "三钛合金", TypeID = "34", Descript = CEVEMarketAPI.baseChart.Tri.ToString() });
+            lstBaseChart.Add(new Item() { Name = "类晶体胶矿", TypeID = "35", Descript = CEVEMarketAPI.baseChart.Pye.ToString() });
+            lstBaseChart.Add(new Item() { Name = "类银超金属", TypeID = "36", Descript = CEVEMarketAPI.baseChart.Mex.ToString() });
+            lstBaseChart.Add(new Item() { Name = "同位聚合体", TypeID = "37", Descript = CEVEMarketAPI.baseChart.Iso.ToString() });
+            lstBaseChart.Add(new Item() { Name = "超新星诺克石", TypeID = "38", Descript = CEVEMarketAPI.baseChart.Noc.ToString() });
+            lstBaseChart.Add(new Item() { Name = "晶状石英核岩", TypeID = "39", Descript = CEVEMarketAPI.baseChart.Zyd.ToString() });
+            lstBaseChart.Add(new Item() { Name = "超噬矿", TypeID = "40", Descript = CEVEMarketAPI.baseChart.Meg.ToString() });
+            string strContent = JsonConvert.SerializeObject(lstBaseChart);
+            //添加换行符
+            strContent = strContent.Replace("},", "},\n");
+            //多余内容去除
+            strContent = strContent.Replace(",\"Category1\":\"\",\"Category2\":\"\",\"Category3\":\"\",\"Category4\":\"\",\"Category5\":\"\",\"Category6\":\"\"", "");
+            FilesHelper.OutputJsonFile("JitaPrice\\" + DateTime.Now.ToString("yyyyMMddHHmmss"), strContent);
+        }
+
+        public static Dictionary<string, Price> SearchPriceJson(List<string> lstItem)
+        {
+            Dictionary<string, Price> dicResult = new Dictionary<string, Price>();
+
+            foreach (string Item in lstItem)
+            {
+                //请求
+                string strReqPath = string.Format("https://www.ceve-market.org/api/market/region/10000002/type/{0}.json", Item);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(strReqPath);
+                request.Method = "GET";
+
+                using (WebResponse response = request.GetResponse())
+                {
+                    Stream stream = response.GetResponseStream();
+                    StreamReader sr = new StreamReader(stream);
+                    string strJson = sr.ReadToEnd();
+                    Price result = JsonConvert.DeserializeObject<Price>(strJson);
+                    dicResult.Add(Item, result);
+                }
+            }
+
+            return dicResult;
+
+        }
+
     }
 }

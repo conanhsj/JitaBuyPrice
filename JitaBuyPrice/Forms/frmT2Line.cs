@@ -8,11 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static JitaBuyPrice.Commons;
 
 namespace JitaBuyPrice.Forms
 {
     public partial class frmT2Line : Form
     {
+        double dT2Rate = 0.02;
+        double dComRate = 0.10;
+
         public frmT2Line()
         {
             InitializeComponent();
@@ -657,6 +661,7 @@ namespace JitaBuyPrice.Forms
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+
             OpenFileDialog diaFile = new OpenFileDialog();
             diaFile.InitialDirectory = Path.GetDirectoryName(Application.ExecutablePath);
             diaFile.CheckFileExists = true;
@@ -695,6 +700,16 @@ namespace JitaBuyPrice.Forms
 
         private void cmbT2Copy_SelectedValueChanged(object sender, EventArgs e)
         {
+            string strT2Rate = this.txtT2Rate.Text;
+            string strComRate = this.txtComRate.Text;
+            this.dT2Rate = Commons.ReadDouble(strT2Rate) / 100;
+            this.dComRate = Commons.ReadDouble(strComRate) / 100;
+
+            if (dT2Rate == 0 || dComRate == 0)
+            {
+                return;
+            }
+
             Objects.T2Product item = (Objects.T2Product)cmbT2Copy.SelectedItem;
             if (item != null)
             {
@@ -704,7 +719,9 @@ namespace JitaBuyPrice.Forms
                     ListViewItem li = new ListViewItem(strKey);
                     li.UseItemStyleForSubItems = false;
 
-                    li.SubItems.Add(string.Format("{0:N}", item.Items[strKey]));
+                    //材料效率减免
+                    int nItem = (int)Math.Ceiling(item.Items[strKey] * (1 - dT2Rate));
+                    li.SubItems.Add(string.Format("{0:N}", nItem));
                     lvBase.Items.Add(li);
                 }
                 DoCalComponentCost();
@@ -730,14 +747,21 @@ namespace JitaBuyPrice.Forms
                         Objects.SearchingItem item = lstOthers.Find(X => { return X.Name == strKey; });
                         if (item != null)
                         {
-                            item.Volume += (int)Math.Ceiling(reaction.Input[strKey] * ReadDouble(Target.SubItems[1].Text));
+                            //材料个数
+                            int nVol = (int)Math.Ceiling(reaction.Input[strKey] * (1 - dComRate) * ReadDouble(Target.SubItems[1].Text));
+                            //每流程一个的材料不可缩减
+                            item.Volume += nVol < ReadDouble(Target.SubItems[1].Text) ? (int)ReadDouble(Target.SubItems[1].Text) : nVol;
                             item.Size += (int)Math.Ceiling(ReadDouble(Target.SubItems[1].Text) / reaction.Output);
                         }
                         else
                         {
                             item = new Objects.SearchingItem();
                             item.Name = strKey;
-                            item.Volume = (int)Math.Ceiling(reaction.Input[strKey] * ReadDouble(Target.SubItems[1].Text));
+
+                            //材料个数
+                            int nVol = (int)Math.Ceiling(reaction.Input[strKey] * (1 - dComRate) * ReadDouble(Target.SubItems[1].Text));
+                            //每流程一个的材料不可缩减
+                            item.Volume = nVol < ReadDouble(Target.SubItems[1].Text) ? (int)ReadDouble(Target.SubItems[1].Text) : nVol;
                             item.Size += (int)Math.Ceiling(ReadDouble(Target.SubItems[1].Text) / reaction.Output);
                             lstOthers.Add(item);
                         }
@@ -927,15 +951,6 @@ namespace JitaBuyPrice.Forms
                 li.SubItems.Add(string.Format("{0:N}", Result.Volume));
                 lvMoon.Items.Add(li);
             }
-        }
-
-
-        private static double ReadDouble(string strCell)
-        {
-            double dRnt = 0;
-            strCell = strCell.Replace(",", "");
-            double.TryParse(strCell, out dRnt);
-            return dRnt;
         }
 
         private void btnOutput_Click(object sender, EventArgs e)
