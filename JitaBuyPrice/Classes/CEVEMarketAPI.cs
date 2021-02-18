@@ -97,10 +97,14 @@ namespace JitaBuyPrice.Classes
                         Cached = new Price();
                         Cached.TypeId = Item.ItemID;
                         Cached.Name = Item.Name;
-                        Cached.buy.max = Commons.ReadDouble(strBuy);
-                        Cached.buy.volume = Commons.ReadInt(strBuyVolume);
-                        Cached.sell.min = Commons.ReadDouble(strSell);
-                        Cached.buy.volume = Commons.ReadInt(strSellVolume);
+                        PriceInfo buy = new PriceInfo();
+                        buy.max = Commons.ReadDouble(strBuy);
+                        buy.volume = Commons.ReadInt(strBuyVolume);
+                        Cached.buy = buy;
+                        PriceInfo sell = new PriceInfo();
+                        sell.min = Commons.ReadDouble(strSell);
+                        sell.volume = Commons.ReadInt(strSellVolume);
+                        Cached.sell = sell;
                         lstPriceCache.Add(Cached);
                     }
                 }

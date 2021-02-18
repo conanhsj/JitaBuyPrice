@@ -225,6 +225,7 @@
             // 
             // lblTargetSell
             // 
+            this.lblTargetSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTargetSell.AutoSize = true;
             this.lblTargetSell.Location = new System.Drawing.Point(10, 470);
             this.lblTargetSell.Name = "lblTargetSell";
