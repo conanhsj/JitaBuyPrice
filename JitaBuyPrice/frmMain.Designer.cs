@@ -43,6 +43,7 @@
             this.btnBusiness = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnShips = new System.Windows.Forms.Button();
+            this.btnPriceCached = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMyRoom
@@ -195,11 +196,22 @@
             this.btnShips.UseVisualStyleBackColor = true;
             this.btnShips.Click += new System.EventHandler(this.btnShips_Click);
             // 
+            // btnPriceCached
+            // 
+            this.btnPriceCached.Location = new System.Drawing.Point(364, 177);
+            this.btnPriceCached.Name = "btnPriceCached";
+            this.btnPriceCached.Size = new System.Drawing.Size(75, 23);
+            this.btnPriceCached.TabIndex = 21;
+            this.btnPriceCached.Text = "查看价格";
+            this.btnPriceCached.UseVisualStyleBackColor = true;
+            this.btnPriceCached.Click += new System.EventHandler(this.btnPriceCached_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(489, 230);
+            this.Controls.Add(this.btnPriceCached);
             this.Controls.Add(this.btnShips);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnBusiness);
@@ -238,6 +250,7 @@
         private System.Windows.Forms.Button btnBusiness;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnShips;
+        private System.Windows.Forms.Button btnPriceCached;
     }
 }
 

@@ -39,6 +39,13 @@
             this.txtT2Rate = new System.Windows.Forms.TextBox();
             this.lblComRate = new System.Windows.Forms.Label();
             this.txtComRate = new System.Windows.Forms.TextBox();
+            this.lblBuyPrice1 = new System.Windows.Forms.Label();
+            this.lblBuyPrice0 = new System.Windows.Forms.Label();
+            this.lblBuyPrice2 = new System.Windows.Forms.Label();
+            this.lblBuyPrice3 = new System.Windows.Forms.Label();
+            this.lblLineSum1 = new System.Windows.Forms.Label();
+            this.lblLineSum2 = new System.Windows.Forms.Label();
+            this.lblTargetSell = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnLoad
@@ -77,7 +84,7 @@
             this.lvBase.FullRowSelect = true;
             this.lvBase.Location = new System.Drawing.Point(12, 67);
             this.lvBase.Name = "lvBase";
-            this.lvBase.Size = new System.Drawing.Size(200, 432);
+            this.lvBase.Size = new System.Drawing.Size(200, 363);
             this.lvBase.TabIndex = 4;
             this.lvBase.UseCompatibleStateImageBehavior = false;
             this.lvBase.View = System.Windows.Forms.View.Details;
@@ -90,7 +97,7 @@
             this.lvHigher.FullRowSelect = true;
             this.lvHigher.Location = new System.Drawing.Point(234, 67);
             this.lvHigher.Name = "lvHigher";
-            this.lvHigher.Size = new System.Drawing.Size(230, 432);
+            this.lvHigher.Size = new System.Drawing.Size(230, 363);
             this.lvHigher.TabIndex = 5;
             this.lvHigher.UseCompatibleStateImageBehavior = false;
             this.lvHigher.View = System.Windows.Forms.View.Details;
@@ -103,7 +110,7 @@
             this.lvLower.FullRowSelect = true;
             this.lvLower.Location = new System.Drawing.Point(485, 67);
             this.lvLower.Name = "lvLower";
-            this.lvLower.Size = new System.Drawing.Size(230, 432);
+            this.lvLower.Size = new System.Drawing.Size(230, 363);
             this.lvLower.TabIndex = 6;
             this.lvLower.UseCompatibleStateImageBehavior = false;
             this.lvLower.View = System.Windows.Forms.View.Details;
@@ -116,7 +123,7 @@
             this.lvMoon.FullRowSelect = true;
             this.lvMoon.Location = new System.Drawing.Point(738, 67);
             this.lvMoon.Name = "lvMoon";
-            this.lvMoon.Size = new System.Drawing.Size(200, 432);
+            this.lvMoon.Size = new System.Drawing.Size(200, 363);
             this.lvMoon.TabIndex = 7;
             this.lvMoon.UseCompatibleStateImageBehavior = false;
             this.lvMoon.View = System.Windows.Forms.View.Details;
@@ -156,11 +163,87 @@
             this.txtComRate.TabIndex = 11;
             this.txtComRate.Text = "10";
             // 
+            // lblBuyPrice1
+            // 
+            this.lblBuyPrice1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblBuyPrice1.AutoSize = true;
+            this.lblBuyPrice1.Location = new System.Drawing.Point(232, 442);
+            this.lblBuyPrice1.Name = "lblBuyPrice1";
+            this.lblBuyPrice1.Size = new System.Drawing.Size(83, 12);
+            this.lblBuyPrice1.TabIndex = 12;
+            this.lblBuyPrice1.Text = "挂单价格总和：";
+            // 
+            // lblBuyPrice0
+            // 
+            this.lblBuyPrice0.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblBuyPrice0.AutoSize = true;
+            this.lblBuyPrice0.Location = new System.Drawing.Point(10, 442);
+            this.lblBuyPrice0.Name = "lblBuyPrice0";
+            this.lblBuyPrice0.Size = new System.Drawing.Size(83, 12);
+            this.lblBuyPrice0.TabIndex = 13;
+            this.lblBuyPrice0.Text = "挂单价格总和：";
+            // 
+            // lblBuyPrice2
+            // 
+            this.lblBuyPrice2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblBuyPrice2.AutoSize = true;
+            this.lblBuyPrice2.Location = new System.Drawing.Point(483, 442);
+            this.lblBuyPrice2.Name = "lblBuyPrice2";
+            this.lblBuyPrice2.Size = new System.Drawing.Size(83, 12);
+            this.lblBuyPrice2.TabIndex = 14;
+            this.lblBuyPrice2.Text = "挂单价格总和：";
+            // 
+            // lblBuyPrice3
+            // 
+            this.lblBuyPrice3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblBuyPrice3.AutoSize = true;
+            this.lblBuyPrice3.Location = new System.Drawing.Point(736, 442);
+            this.lblBuyPrice3.Name = "lblBuyPrice3";
+            this.lblBuyPrice3.Size = new System.Drawing.Size(83, 12);
+            this.lblBuyPrice3.TabIndex = 15;
+            this.lblBuyPrice3.Text = "挂单价格总和：";
+            // 
+            // lblLineSum1
+            // 
+            this.lblLineSum1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblLineSum1.AutoSize = true;
+            this.lblLineSum1.Location = new System.Drawing.Point(232, 470);
+            this.lblLineSum1.Name = "lblLineSum1";
+            this.lblLineSum1.Size = new System.Drawing.Size(59, 12);
+            this.lblLineSum1.TabIndex = 16;
+            this.lblLineSum1.Text = "总流程数：";
+            // 
+            // lblLineSum2
+            // 
+            this.lblLineSum2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblLineSum2.AutoSize = true;
+            this.lblLineSum2.Location = new System.Drawing.Point(483, 470);
+            this.lblLineSum2.Name = "lblLineSum2";
+            this.lblLineSum2.Size = new System.Drawing.Size(59, 12);
+            this.lblLineSum2.TabIndex = 17;
+            this.lblLineSum2.Text = "总流程数：";
+            // 
+            // lblTargetSell
+            // 
+            this.lblTargetSell.AutoSize = true;
+            this.lblTargetSell.Location = new System.Drawing.Point(10, 470);
+            this.lblTargetSell.Name = "lblTargetSell";
+            this.lblTargetSell.Size = new System.Drawing.Size(59, 12);
+            this.lblTargetSell.TabIndex = 18;
+            this.lblTargetSell.Text = "吉他卖价：";
+            // 
             // frmT2Line
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(947, 511);
+            this.ClientSize = new System.Drawing.Size(957, 513);
+            this.Controls.Add(this.lblTargetSell);
+            this.Controls.Add(this.lblLineSum2);
+            this.Controls.Add(this.lblLineSum1);
+            this.Controls.Add(this.lblBuyPrice3);
+            this.Controls.Add(this.lblBuyPrice2);
+            this.Controls.Add(this.lblBuyPrice0);
+            this.Controls.Add(this.lblBuyPrice1);
             this.Controls.Add(this.txtComRate);
             this.Controls.Add(this.lblComRate);
             this.Controls.Add(this.txtT2Rate);
@@ -193,5 +276,12 @@
         private System.Windows.Forms.TextBox txtT2Rate;
         private System.Windows.Forms.Label lblComRate;
         private System.Windows.Forms.TextBox txtComRate;
+        private System.Windows.Forms.Label lblBuyPrice1;
+        private System.Windows.Forms.Label lblBuyPrice0;
+        private System.Windows.Forms.Label lblBuyPrice2;
+        private System.Windows.Forms.Label lblBuyPrice3;
+        private System.Windows.Forms.Label lblLineSum1;
+        private System.Windows.Forms.Label lblLineSum2;
+        private System.Windows.Forms.Label lblTargetSell;
     }
 }

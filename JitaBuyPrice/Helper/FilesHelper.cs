@@ -1,4 +1,5 @@
-﻿using JitaBuyPrice.ObjectsYaml;
+﻿using JitaBuyPrice.ObjectsJson;
+using JitaBuyPrice.ObjectsYaml;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,8 +15,12 @@ namespace JitaBuyPrice.Helper
     {
         public static void OutputJsonFile(string strFileName, string strContent)
         {
-            string strBasePath = Application.StartupPath;
-            using (var sw = new StreamWriter(strBasePath+ @"\Json\"+ strFileName+ ".json", false, Encoding.Unicode))
+            string strBasePath = Application.StartupPath + @"\Json\" + strFileName + ".json";
+            if (!Directory.Exists(Path.GetDirectoryName(strBasePath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(strBasePath));
+            }
+            using (var sw = new StreamWriter(strBasePath, false, Encoding.Unicode))
             {
                 sw.Write(strContent);
             }
@@ -34,9 +39,8 @@ namespace JitaBuyPrice.Helper
             return strContents;
         }
 
-        public static List<Materials> ReadYamlFile(string strFileName)
+        public static List<Materials> ReadMaterialsFile()
         {
-            string strContents;
             string strBasePath = Application.StartupPath;
 
             var deserializer = new YamlDotNet.Serialization.Deserializer();
@@ -44,7 +48,7 @@ namespace JitaBuyPrice.Helper
             List<Materials> lstMaterials = new List<Materials>();
 
             
-            using (var sr = new StreamReader(strBasePath + @"\SDE\" + strFileName + ".yaml", Encoding.UTF8))
+            using (var sr = new StreamReader(strBasePath + @"\SDE\FSD\typeMaterials.yaml", Encoding.UTF8))
             {
 
                 //YamlStream ys = new YamlStream();
@@ -62,6 +66,44 @@ namespace JitaBuyPrice.Helper
             }
             //Environment.
             return lstMaterials;
+        }
+
+        public static List<BluePrintJson> ReadBluePrintFile()
+        {
+            string strBasePath = Application.StartupPath;
+
+            var deserializer = new YamlDotNet.Serialization.Deserializer();
+
+            List<BluePrintJson> lstBluePrint = new List<BluePrintJson>();
+
+
+            using (var sr = new StreamReader(strBasePath + @"\SDE\FSD\blueprints.yaml", Encoding.UTF8))
+            {
+
+                //YamlStream ys = new YamlStream();
+                //ys.Load(sr);
+
+                var target = deserializer.Deserialize<Dictionary<string, BluePrintYaml>>(sr);
+                foreach (string item in target.Keys)
+                {
+                    BluePrintJson bpItem = new BluePrintJson();
+
+                    if (int.Parse(item) != target[item].TypeID)
+                    {
+                        MessageBox.Show("Warning");
+                    }
+                    bpItem.TypeID = item;
+
+                    //bpItem.Materials = target[item].Activities["manufacturing"].Manufacturing["materials"];
+
+                    //bpItem.Materials = target[item];
+                    lstBluePrint.Add(bpItem);
+                }
+                //foreach(object item in target)
+                //strContents = sr.ReadToEnd();
+            }
+            //Environment.
+            return lstBluePrint;
         }
 
     }

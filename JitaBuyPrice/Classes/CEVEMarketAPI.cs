@@ -16,7 +16,7 @@ namespace JitaBuyPrice.Classes
 {
     public static class CEVEMarketAPI
     {
-
+        public static List<Price> lstPriceCache = new List<Price>();
         public static List<SearchingResult> lstResult = new List<SearchingResult>();
         public static BriefChart baseChart = new BriefChart();
         public static IceChart iceChart = new IceChart();
@@ -82,7 +82,29 @@ namespace JitaBuyPrice.Classes
                     PriceStat.BasePrice = Item.BasePrice;
                     PriceStat.Size = Item.Size;
                     lstResult.Add(PriceStat);
+
+
+                    Price Cached = lstPriceCache.Find(X => X.TypeId == Item.ItemID);
+                    if (Cached != null)
+                    {
+                        Cached.buy.max = Commons.ReadDouble(strBuy);
+                        Cached.buy.volume = Commons.ReadInt(strBuyVolume);
+                        Cached.sell.min = Commons.ReadDouble(strSell);
+                        Cached.buy.volume = Commons.ReadInt(strSellVolume);
+                    }
+                    else
+                    {
+                        Cached = new Price();
+                        Cached.TypeId = Item.ItemID;
+                        Cached.Name = Item.Name;
+                        Cached.buy.max = Commons.ReadDouble(strBuy);
+                        Cached.buy.volume = Commons.ReadInt(strBuyVolume);
+                        Cached.sell.min = Commons.ReadDouble(strSell);
+                        Cached.buy.volume = Commons.ReadInt(strSellVolume);
+                        lstPriceCache.Add(Cached);
+                    }
                 }
+
             }
 
         }
@@ -169,6 +191,23 @@ namespace JitaBuyPrice.Classes
 
             foreach (string Item in lstItem)
             {
+                Price Cached = lstPriceCache.Find(X => X.TypeId == Item);
+                if (Cached != null)
+                {
+                    dicResult.Add(Item, Cached);
+                    continue;
+                    ////每次列表前5个去更新
+                    //if (lstPriceCache.IndexOf(Cached) > 5)
+                    //{
+                    //    dicResult.Add(Item, Cached);
+                    //    continue;
+                    //}
+                    //else
+                    //{
+                    //    lstPriceCache.Remove(Cached);
+                    //}
+                }
+
                 //请求
                 string strReqPath = string.Format("https://www.ceve-market.org/api/market/region/10000002/type/{0}.json", Item);
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(strReqPath);
@@ -181,6 +220,10 @@ namespace JitaBuyPrice.Classes
                     string strJson = sr.ReadToEnd();
                     Price result = JsonConvert.DeserializeObject<Price>(strJson);
                     dicResult.Add(Item, result);
+
+                    Cached = result;
+                    Cached.TypeId = Item;
+                    lstPriceCache.Add(Cached);
                 }
             }
 

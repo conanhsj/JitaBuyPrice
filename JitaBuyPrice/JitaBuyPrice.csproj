@@ -96,6 +96,12 @@
     <Compile Include="Forms\frmLoginESI.Designer.cs">
       <DependentUpon>frmLoginESI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmPriceCache.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmPriceCache.Designer.cs">
+      <DependentUpon>frmPriceCache.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmSalvage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,9 +152,16 @@
     </Compile>
     <Compile Include="Helper\FilesHelper.cs" />
     <Compile Include="Helper\SdeFileReader.cs" />
+    <Compile Include="ObjectsJson\BluePrintJson.cs" />
     <Compile Include="ObjectsJson\Price.cs" />
     <Compile Include="ObjectsJson\PriceInfo.cs" />
+    <Compile Include="ObjectsYaml\BluePrintYamlActivities.cs" />
+    <Compile Include="ObjectsYaml\BluePrintYamlOther.cs" />
+    <Compile Include="ObjectsYaml\BluePrintYaml.cs" />
+    <Compile Include="ObjectsYaml\BluePrintYamlManu.cs" />
+    <Compile Include="ObjectsYaml\BluePrintYamlInvention.cs" />
     <Compile Include="ObjectsYaml\MaterialsInfo.cs" />
+    <Compile Include="ObjectsYaml\BluePrintYamlMaterials.cs" />
     <Compile Include="Objects\ESIAssets.cs" />
     <Compile Include="Objects\IceChart.cs" />
     <Compile Include="Objects\BriefChart.cs" />
@@ -181,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLoginESI.resx">
       <DependentUpon>frmLoginESI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmPriceCache.resx">
+      <DependentUpon>frmPriceCache.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSalvage.resx">
       <DependentUpon>frmSalvage.cs</DependentUpon>

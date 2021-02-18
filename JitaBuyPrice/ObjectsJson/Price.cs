@@ -8,6 +8,8 @@ namespace JitaBuyPrice.ObjectsJson
 {
     public class Price
     {
+        public string TypeId;
+        public string Name;
         public PriceInfo all;
         public PriceInfo buy;
         public PriceInfo sell;

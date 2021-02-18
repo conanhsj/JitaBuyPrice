@@ -303,26 +303,26 @@ namespace JitaBuyPrice.Forms
 
             //查找T1原料
             //GetT1OnlyMaterials();
-            List<Materials> lstT1 = JsonConvert.DeserializeObject<List<Materials>>(FilesHelper.ReadJsonFile("Materials\\T1Only"));
 
-            List<string> lstTarget = lstT1.Select(X => X.TypeID).ToList();
+            FilesHelper.ReadBluePrintFile();
 
-            Dictionary<string, Price> dicResult = CEVEMarketAPI.SearchPriceJson(lstTarget);
+            //List<Materials> lstT1 = JsonConvert.DeserializeObject<List<Materials>>(FilesHelper.ReadJsonFile("Materials\\T1Only"));
 
-            foreach(string strKey in dicResult.Keys)
-            {
-                FilesHelper.OutputJsonFile("JitaSellPrice\\" + strKey, JsonConvert.SerializeObject(dicResult[strKey]));
-            }
-            
+            //List<string> lstTarget = lstT1.Select(X => X.TypeID).ToList();
 
+            //Dictionary<string, Price> dicResult = CEVEMarketAPI.SearchPriceJson(lstTarget);
 
+            //foreach(string strKey in dicResult.Keys)
+            //{
+            //    FilesHelper.OutputJsonFile("JitaSellPrice\\" + strKey, JsonConvert.SerializeObject(dicResult[strKey]));
+            //}
             Process.Start(Path.GetDirectoryName(Application.StartupPath + @"\Json\"));
         }
 
         private void GetT1OnlyMaterials()
         {
             List<string> lstTypeID = ESICEVEAPI.ReadMarketTypeID("10000002");
-            List<Materials> lstMaterials = FilesHelper.ReadYamlFile(@"\FSD\typeMaterials");
+            List<Materials> lstMaterials = FilesHelper.ReadMaterialsFile();
             List<Materials> lstT1 = new List<Materials>();
             foreach (Materials mat in lstMaterials)
             {

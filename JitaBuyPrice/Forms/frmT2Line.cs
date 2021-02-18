@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JitaBuyPrice.Classes;
+using JitaBuyPrice.ObjectsJson;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +18,9 @@ namespace JitaBuyPrice.Forms
     {
         double dT2Rate = 0.02;
         double dComRate = 0.10;
+        const string strBuyPrice = "挂单价格总和：";
+        const string strLineSum = "总流程数：";
+        const string strBaseSellPrice = "吉他卖价：";
 
         public frmT2Line()
         {
@@ -711,9 +716,14 @@ namespace JitaBuyPrice.Forms
             }
 
             Objects.T2Product item = (Objects.T2Product)cmbT2Copy.SelectedItem;
+            Objects.Item target = CEVEMarketFile.lstItem.Find(obj => obj.Name == item.Name);
+            Dictionary<string, Price> dicResult = CEVEMarketAPI.SearchPriceJson(new List<string>() { target.TypeID });
+            this.lblTargetSell.Text = strBaseSellPrice + string.Format("{0:C}", dicResult[target.TypeID].sell.min * item.Volume).Trim('¥');
+
             if (item != null)
             {
                 lvBase.Items.Clear();
+                double dPriceSumBase = 0;
                 foreach (string strKey in item.Items.Keys)
                 {
                     ListViewItem li = new ListViewItem(strKey);
@@ -723,7 +733,13 @@ namespace JitaBuyPrice.Forms
                     int nItem = (int)Math.Ceiling(item.Items[strKey] * (1 - dT2Rate));
                     li.SubItems.Add(string.Format("{0:N}", nItem));
                     lvBase.Items.Add(li);
+
+                    //价格查询
+                    target = CEVEMarketFile.lstItem.Find(obj => obj.Name == strKey);
+                    dicResult = CEVEMarketAPI.SearchPriceJson(new List<string>() { target.TypeID });
+                    dPriceSumBase += nItem * dicResult[target.TypeID].sell.min;
                 }
+                this.lblBuyPrice0.Text = strBuyPrice + string.Format("{0:C}", dPriceSumBase).Trim('¥');
                 DoCalComponentCost();
             }
         }
@@ -785,6 +801,8 @@ namespace JitaBuyPrice.Forms
                 }
             }
 
+            int nLineSum = 0;
+            double dPriceSumHigher = 0;
             foreach (Objects.SearchingItem Result in lstOthers)
             {
                 ListViewItem li = new ListViewItem(Result.Name);
@@ -794,11 +812,19 @@ namespace JitaBuyPrice.Forms
                 Objects.Reaction reaction = this.lstHigherReaction.Find(X => { return X.Name == Result.Name; });
                 if (reaction != null)
                 {
-                    li.SubItems.Add(string.Format("{0:N}", (int)Math.Ceiling(Result.Volume / reaction.Output)));
+                    int nLineNumHigher = (int)Math.Ceiling(Result.Volume / reaction.Output);
+                    li.SubItems.Add(string.Format("{0:N}", nLineNumHigher));
+                    nLineSum += nLineNumHigher;
                 }
-
                 lvHigher.Items.Add(li);
+
+                //价格查询
+                Objects.Item target = CEVEMarketFile.lstItem.Find(obj => obj.Name == Result.Name);
+                Dictionary<string, Price> dicResult = CEVEMarketAPI.SearchPriceJson(new List<string>() { target.TypeID });
+                dPriceSumHigher += Result.Volume * dicResult[target.TypeID].sell.min;
             }
+            this.lblBuyPrice1.Text = strBuyPrice + string.Format("{0:C}", dPriceSumHigher).Trim('¥');
+            this.lblLineSum1.Text = strLineSum + nLineSum.ToString();
             DoCalHigherCost();
         }
 
@@ -864,6 +890,8 @@ namespace JitaBuyPrice.Forms
                 }
             }
 
+            int nLineSum = 0;
+            double dPriceSumLower = 0;
             foreach (Objects.SearchingItem Result in lstOthers)
             {
                 ListViewItem li = new ListViewItem(Result.Name);
@@ -871,13 +899,22 @@ namespace JitaBuyPrice.Forms
 
                 li.SubItems.Add(string.Format("{0:N}", Result.Volume));
                 Objects.Reaction reaction = this.lstLowerReaction.Find(X => { return X.Name == Result.Name; });
+                //计算流程数
                 if (reaction != null)
                 {
-                    li.SubItems.Add(string.Format("{0:N}", (int)Math.Ceiling(Result.Volume / reaction.Output)));
+                    int nLineNumLower = (int)Math.Ceiling(Result.Volume / reaction.Output);
+                    li.SubItems.Add(string.Format("{0:N}", nLineNumLower));
+                    nLineSum += nLineNumLower;
                 }
                 lvLower.Items.Add(li);
-            }
 
+                //价格查询
+                Objects.Item target = CEVEMarketFile.lstItem.Find(obj => obj.Name == Result.Name);
+                Dictionary<string, Price> dicResult = CEVEMarketAPI.SearchPriceJson(new List<string>() { target.TypeID });
+                dPriceSumLower += Result.Volume * dicResult[target.TypeID].sell.min;
+            }
+            this.lblBuyPrice2.Text = strBuyPrice + string.Format("{0:C}", dPriceSumLower).Trim('¥');
+            this.lblLineSum2.Text = strLineSum + nLineSum.ToString();
             DoCalLowerCost();
         }
 
@@ -943,6 +980,7 @@ namespace JitaBuyPrice.Forms
                 }
             }
 
+            double dPriceSumMoon = 0;
             foreach (Objects.SearchingItem Result in lstOthers)
             {
                 ListViewItem li = new ListViewItem(Result.Name);
@@ -950,7 +988,13 @@ namespace JitaBuyPrice.Forms
 
                 li.SubItems.Add(string.Format("{0:N}", Result.Volume));
                 lvMoon.Items.Add(li);
+
+                //价格查询
+                Objects.Item target = CEVEMarketFile.lstItem.Find(obj => obj.Name == Result.Name);
+                Dictionary<string, Price> dicResult = CEVEMarketAPI.SearchPriceJson(new List<string>() { target.TypeID });
+                dPriceSumMoon += Result.Volume * dicResult[target.TypeID].sell.min;
             }
+            this.lblBuyPrice3.Text = strBuyPrice + string.Format("{0:C}", dPriceSumMoon).Trim('¥');
         }
 
         private void btnOutput_Click(object sender, EventArgs e)

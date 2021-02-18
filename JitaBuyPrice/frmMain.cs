@@ -596,5 +596,11 @@ namespace JitaBuyPrice
             frmShips frmResult = new frmShips();
             frmResult.Show();
         }
+
+        private void btnPriceCached_Click(object sender, EventArgs e)
+        {
+            frmPriceCache frmPriceCache = new frmPriceCache();
+            frmPriceCache.Show();
+        }
     }
 }
