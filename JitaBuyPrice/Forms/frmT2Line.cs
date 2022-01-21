@@ -137,11 +137,12 @@ namespace JitaBuyPrice.Forms
         private void LoadGallenteReaction()
         {
             Objects.Reaction item = new Objects.Reaction();
-            item.Name = "磁力感应器组";
+            item.Name = "震荡电容器单元";
             item.Output = 1;
-            item.Input.Add("碳化晶体", 22);
+            item.Input.Add("碳化晶体", 27);
+            item.Input.Add("富勒化合物", 11);
             item.Input.Add("纳米晶体管", 1);
-            item.Input.Add("超级突触纤维", 2);
+            item.Input.Add("光子超材料", 2);
             lstT2ComponentReaction.Add(item);
 
             item = new Objects.Reaction();
@@ -150,6 +151,38 @@ namespace JitaBuyPrice.Forms
             item.Input.Add("碳化晶体", 22);
             item.Input.Add("酚合成物", 7);
             item.Input.Add("纳米晶体管", 2);
+            lstT2ComponentReaction.Add(item);
+
+            item = new Objects.Reaction();
+            item.Name = "聚变反应堆机组";
+            item.Output = 1;
+            item.Input.Add("碳化晶体", 9);
+            item.Input.Add("费米子冷凝物", 2);
+            lstT2ComponentReaction.Add(item);
+
+
+            item = new Objects.Reaction();
+            item.Name = "粒子加速装置";
+            item.Output = 1;
+            item.Input.Add("碳化晶体", 31);
+            item.Input.Add("富勒化合物", 11);
+            item.Input.Add("超级突触纤维", 1);
+            lstT2ComponentReaction.Add(item);
+
+            item = new Objects.Reaction();
+            item.Name = "离子推进器";
+            item.Output = 1;
+            item.Input.Add("碳化晶体", 13);
+            item.Input.Add("酚合成物", 3);
+            item.Input.Add("铁磁胶体", 1);
+            lstT2ComponentReaction.Add(item);
+
+            item = new Objects.Reaction();
+            item.Name = "磁力感应器组";
+            item.Output = 1;
+            item.Input.Add("碳化晶体", 22);
+            item.Input.Add("纳米晶体管", 1);
+            item.Input.Add("超级突触纤维", 2);
             lstT2ComponentReaction.Add(item);
 
             item = new Objects.Reaction();
@@ -162,26 +195,10 @@ namespace JitaBuyPrice.Forms
             lstT2ComponentReaction.Add(item);
 
             item = new Objects.Reaction();
-            item.Name = "聚变反应堆机组";
+            item.Name = "碳化晶体附甲";
             item.Output = 1;
-            item.Input.Add("碳化晶体", 9);
-            item.Input.Add("费米子冷凝物", 2);
-            lstT2ComponentReaction.Add(item);
-
-            item = new Objects.Reaction();
-            item.Name = "离子推进器";
-            item.Output = 1;
-            item.Input.Add("碳化晶体", 13);
-            item.Input.Add("酚合成物", 3);
-            item.Input.Add("铁磁胶体", 1);
-            lstT2ComponentReaction.Add(item);
-
-            item = new Objects.Reaction();
-            item.Name = "粒子加速装置";
-            item.Output = 1;
-            item.Input.Add("碳化晶体", 31);
-            item.Input.Add("富勒化合物", 11);
-            item.Input.Add("超级突触纤维", 1);
+            item.Input.Add("碳化晶体", 44);
+            item.Input.Add("多晶碳化硅纤维", 11);
             lstT2ComponentReaction.Add(item);
 
             item = new Objects.Reaction();
@@ -192,21 +209,6 @@ namespace JitaBuyPrice.Forms
             item.Input.Add("铁磁胶体", 1);
             lstT2ComponentReaction.Add(item);
 
-            item = new Objects.Reaction();
-            item.Name = "碳化晶体附甲";
-            item.Output = 1;
-            item.Input.Add("碳化晶体", 44);
-            item.Input.Add("多晶碳化硅纤维", 11);
-            lstT2ComponentReaction.Add(item);
-
-            item = new Objects.Reaction();
-            item.Name = "震荡电容器单元";
-            item.Output = 1;
-            item.Input.Add("碳化晶体", 27);
-            item.Input.Add("富勒化合物", 11);
-            item.Input.Add("纳米晶体管", 1);
-            item.Input.Add("太赫兹超材料", 2);
-            lstT2ComponentReaction.Add(item);
 
         }
         private void LoadCaldariReaction()
@@ -218,6 +220,21 @@ namespace JitaBuyPrice.Forms
             item.Input.Add("富勒化合物", 11);
             item.Input.Add("纳米晶体管", 1);
             item.Input.Add("非线性超材料", 2);
+            lstT2ComponentReaction.Add(item);
+
+            item = new Objects.Reaction();
+            item.Name = "引力子脉冲发生器";
+            item.Output = 1;
+            item.Input.Add("碳化钛", 22);
+            item.Input.Add("酚合成物", 7);
+            item.Input.Add("纳米晶体管", 2);
+            lstT2ComponentReaction.Add(item);
+
+            item = new Objects.Reaction();
+            item.Name = "引力子反应器机组";
+            item.Output = 1;
+            item.Input.Add("碳化钛", 9);
+            item.Input.Add("费米子冷凝物", 2);
             lstT2ComponentReaction.Add(item);
 
             item = new Objects.Reaction();
@@ -237,6 +254,23 @@ namespace JitaBuyPrice.Forms
             lstT2ComponentReaction.Add(item);
 
             item = new Objects.Reaction();
+            item.Name = "引力感应器组";
+            item.Output = 1;
+            item.Input.Add("碳化钛", 22);
+            item.Input.Add("纳米晶体管", 1);
+            item.Input.Add("超级突触纤维", 2);
+            lstT2ComponentReaction.Add(item);
+
+            item = new Objects.Reaction();
+            item.Name = "量子微处理器";
+            item.Output = 1;
+            item.Input.Add("碳化钛", 17);
+            item.Input.Add("酚合成物", 6);
+            item.Input.Add("纳米晶体管", 2);
+            item.Input.Add("非线性超材料", 2);
+            lstT2ComponentReaction.Add(item);
+
+            item = new Objects.Reaction();
             item.Name = "迪波特钛合金附甲";
             item.Output = 1;
             item.Input.Add("碳化钛", 44);
@@ -251,71 +285,16 @@ namespace JitaBuyPrice.Forms
             item.Input.Add("铁磁胶体", 1);
             lstT2ComponentReaction.Add(item);
 
-            item = new Objects.Reaction();
-            item.Name = "量子微处理器";
-            item.Output = 1;
-            item.Input.Add("碳化钛", 17);
-            item.Input.Add("酚合成物", 6);
-            item.Input.Add("纳米晶体管", 2);
-            item.Input.Add("太赫兹超材料", 2);
-            lstT2ComponentReaction.Add(item);
-
-            item = new Objects.Reaction();
-            item.Name = "引力感应器组";
-            item.Output = 1;
-            item.Input.Add("碳化钛", 22);
-            item.Input.Add("纳米晶体管", 1);
-            item.Input.Add("超级突触纤维", 2);
-            lstT2ComponentReaction.Add(item);
-
-            item = new Objects.Reaction();
-            item.Name = "引力子反应器机组";
-            item.Output = 1;
-            item.Input.Add("碳化钛", 9);
-            item.Input.Add("费米子冷凝物", 2);
-            lstT2ComponentReaction.Add(item);
-
-            item = new Objects.Reaction();
-            item.Name = "引力子脉冲发生器";
-            item.Output = 1;
-            item.Input.Add("碳化钛", 22);
-            item.Input.Add("酚合成物", 7);
-            item.Input.Add("纳米晶体管", 2);
-            lstT2ComponentReaction.Add(item);
-
         }
         private void LoadMinmatarReaction()
         {
             Objects.Reaction item = new Objects.Reaction();
-            item.Name = "等离子推进器";
-            item.Output = 1;
-            item.Input.Add("菲尔合金碳化物", 13);
-            item.Input.Add("酚合成物", 3);
-            item.Input.Add("铁磁胶体", 1);
-            lstT2ComponentReaction.Add(item);
-
-            item = new Objects.Reaction();
             item.Name = "电解电容器单元";
             item.Output = 1;
             item.Input.Add("菲尔合金碳化物", 27);
             item.Input.Add("富勒化合物", 11);
             item.Input.Add("纳米晶体管", 1);
             item.Input.Add("等离子体超材料", 2);
-            lstT2ComponentReaction.Add(item);
-
-            item = new Objects.Reaction();
-            item.Name = "光雷达感应器组";
-            item.Output = 1;
-            item.Input.Add("菲尔合金碳化物", 22);
-            item.Input.Add("纳米晶体管", 1);
-            item.Input.Add("超级突触纤维", 2);
-            lstT2ComponentReaction.Add(item);
-
-            item = new Objects.Reaction();
-            item.Name = "核反应堆机组";
-            item.Output = 1;
-            item.Input.Add("菲尔合金碳化物", 9);
-            item.Input.Add("费米子冷凝物", 2);
             lstT2ComponentReaction.Add(item);
 
             item = new Objects.Reaction();
@@ -327,20 +306,10 @@ namespace JitaBuyPrice.Forms
             lstT2ComponentReaction.Add(item);
 
             item = new Objects.Reaction();
-            item.Name = "纳米机械微处理器";
+            item.Name = "核反应堆机组";
             item.Output = 1;
-            item.Input.Add("菲尔合金碳化物", 17);
-            item.Input.Add("酚合成物", 6);
-            item.Input.Add("纳米晶体管", 2);
-            item.Input.Add("太赫兹超材料", 2);
-            lstT2ComponentReaction.Add(item);
-
-            item = new Objects.Reaction();
-            item.Name = "偏阻护盾发射器";
-            item.Output = 1;
-            item.Input.Add("菲尔合金碳化物", 22);
-            item.Input.Add("多晶碳化硅纤维", 9);
-            item.Input.Add("铁磁胶体", 1);
+            item.Input.Add("菲尔合金碳化物", 9);
+            item.Input.Add("费米子冷凝物", 2);
             lstT2ComponentReaction.Add(item);
 
             item = new Objects.Reaction();
@@ -352,10 +321,43 @@ namespace JitaBuyPrice.Forms
             lstT2ComponentReaction.Add(item);
 
             item = new Objects.Reaction();
+            item.Name = "等离子推进器";
+            item.Output = 1;
+            item.Input.Add("菲尔合金碳化物", 13);
+            item.Input.Add("酚合成物", 3);
+            item.Input.Add("铁磁胶体", 1);
+            lstT2ComponentReaction.Add(item);
+
+            item = new Objects.Reaction();
+            item.Name = "光雷达感应器组";
+            item.Output = 1;
+            item.Input.Add("菲尔合金碳化物", 22);
+            item.Input.Add("纳米晶体管", 1);
+            item.Input.Add("超级突触纤维", 2);
+            lstT2ComponentReaction.Add(item);
+
+            item = new Objects.Reaction();
+            item.Name = "纳米机械微处理器";
+            item.Output = 1;
+            item.Input.Add("菲尔合金碳化物", 17);
+            item.Input.Add("酚合成物", 6);
+            item.Input.Add("纳米晶体管", 2);
+            item.Input.Add("等离子体超材料", 2);
+            lstT2ComponentReaction.Add(item);
+
+            item = new Objects.Reaction();
             item.Name = "碳化菲尔金属合成物附甲";
             item.Output = 1;
             item.Input.Add("菲尔合金碳化物", 44);
             item.Input.Add("多晶碳化硅纤维", 11);
+            lstT2ComponentReaction.Add(item);
+
+            item = new Objects.Reaction();
+            item.Name = "偏阻护盾发射器";
+            item.Output = 1;
+            item.Input.Add("菲尔合金碳化物", 22);
+            item.Input.Add("多晶碳化硅纤维", 9);
+            item.Input.Add("铁磁胶体", 1);
             lstT2ComponentReaction.Add(item);
 
         }

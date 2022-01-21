@@ -1,11 +1,20 @@
-﻿using JitaBuyPrice.Forms;
+﻿using Bot.ExtendInterface;
+using JitaBuyPrice.Classes;
+using JitaBuyPrice.Forms;
+using JitaBuyPrice.Helper;
+using JitaBuyPrice.Objects;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Primitives;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -231,7 +240,7 @@ namespace JitaBuyPrice
                 lstSeach.Add(objSearch);
             }
 
-            foreach(string strName in lstSourceName)
+            foreach (string strName in lstSourceName)
             {
                 lstSeach.Add(new Objects.SearchingItem() { Name = strName });
             }
@@ -338,13 +347,13 @@ namespace JitaBuyPrice
             string strUserID = "90076612";
             //this.lblCharaID.Text = strCharaID;
             //Classes.ESICEVEAPI.SearchScope("1");
-           
+
             string strToken = "https://esi.evepc.163.com/ui/oauth2-redirect.html#access_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVC1TaWduYXR1cmUtS2V5IiwidHlwIjoiSldUIn0.eyJzY3AiOiJlc2ktYXNzZXRzLnJlYWRfYXNzZXRzLnYxIiwianRpIjoiNTY3ZGM1OWEtMWVkYi00OTY5LWIyMTktYWNkY2QwNzFkZjE5Iiwia2lkIjoiSldULVNpZ25hdHVyZS1LZXkiLCJzdWIiOiJDSEFSQUNURVI6RVZFOjkwMDc2NjEyIiwiYXpwIjoiYmM5MGFhNDk2YTQwNDcyNGE5M2Y0MWI0ZjRlOTc3NjEiLCJuYW1lIjoi57uv6Iie5LmL5aScIiwib3duZXIiOiJpa1V6SmFZVnFFeG5UUWFLMjBaN2l0MUlJeEU9IiwiZXhwIjoxNTkyNTkwODM4LCJpc3MiOiJsb2dpbi5ldmVwYy4xNjMuY29tIn0.DDnzDd46mjdSvUpfwXqMJ3RYKszFVuYF01atmhEiSonpQsLi3oqcN6gDihsb9xtu5ckb2tvbk7jOnkOjIL-koBhAEU1mF-aLMOAg7xMFav8WdGd4msy8JwayDvhYx5RFUTtd_58jDpiJN220lLDfUApoZ7r3iBYRZhitLUcYEm0SM-_G0AtSDIEXY3g_xHScuX4QX45JBSoJ6UzWqY322XojdHislpyGMp7tjEdNNhmxXU6rN3DAWzC6NMF9broNZluRzh6FLVui37hw2LpKP7fiupI0JPbzWkKBrzgVKAgxwrzznN09oLFiV6vKjyS9L3qm3hYErnCBEF2z1eq7Zw&expires_in=1199&state=kb_ceve_market";
             string strValue = strToken.Substring("https://esi.evepc.163.com/ui/oauth2-redirect.html#".Length);
             string[] value = strValue.Split('&');
             string strAccessToken = value[0].Split('=')[1];
 
-            Classes.ESICEVEAPI.ReadAssets(strUserID, strAccessToken);
+            Classes.CEVESwaggerAPI.ReadAssets(strUserID, strAccessToken);
 
         }
 
@@ -601,6 +610,200 @@ namespace JitaBuyPrice
         {
             frmPriceCache frmPriceCache = new frmPriceCache();
             frmPriceCache.Show();
+        }
+
+        private void btnSDEBluePrint_Click(object sender, EventArgs e)
+        {
+            List<BluePrint> lstBluePrint = FilesHelper.ReadBluePrintFile();
+            List<int> lstUnknown = new List<int>();
+
+            List<BluePrint> lstBluePrintResult = new List<BluePrint>();
+            //查找物品名称
+            foreach (BluePrint BP in lstBluePrint)
+            {
+                Item item = CEVEMarketFile.lstItem.Find(obj => obj.TypeID == BP.TypeID.ToString());
+                if (item != null)
+                {
+                    BP.BPName = item.Name;
+                }
+                else
+                {
+                    lstUnknown.Add(BP.TypeID);
+                    continue;
+                }
+
+                Item ProductItem = CEVEMarketFile.lstItem.Find(obj => obj.TypeID == BP.ProductID.ToString());
+                if (ProductItem != null)
+                {
+                    BP.ProductName = ProductItem.Name;
+                }
+                else
+                {
+                    lstUnknown.Add(BP.ProductID);
+                    continue;
+                }
+
+                bool MaterialOK = true;
+                foreach (BluePrintMtls mtls in BP.Materials)
+                {
+                    Item MaterialItem = CEVEMarketFile.lstItem.Find(obj => obj.TypeID == mtls.TypeID.ToString());
+                    if (MaterialItem != null)
+                    {
+                        mtls.Name = MaterialItem.Name;
+                    }
+                    else
+                    {
+                        lstUnknown.Add(mtls.TypeID);
+                        MaterialOK = false;
+                        break;
+                    }
+                }
+                if (MaterialOK)
+                {
+                    lstBluePrintResult.Add(BP);
+                }
+            }
+
+            FilesHelper.OutputJsonFile("SDE\\BluePrint", JsonConvert.SerializeObject(lstBluePrintResult, Formatting.Indented));
+        }
+
+        private void btnItem_Click(object sender, EventArgs e)
+        {
+
+            OtherNetApis.GetVersion();
+            //JsonSerializerSettings settings = new JsonSerializerSettings();
+
+            //string strOutput = JsonConvert.SerializeObject(CEVEMarketFile.lstItem, Formatting.Indented, settings);
+            //FilesHelper.OutputJsonFile("SDE\\ItemID", strOutput);
+
+            //CEVESwaggerAPI.ReadWikiWormhole("B274");
+            //CEVESwaggerAPI.ReadEVEAlmanac("");
+
+            //CEVESwaggerAPI.ReadWormholeWeb("ABCD");
+            //CEVESwaggerAPI.ReadSearchCharacter("梦逐");
+
+            //模块化
+            Dictionary<string, Lazy<IMessageRequest>> dicRequestModule = new Dictionary<string, Lazy<IMessageRequest>>();
+            Dictionary<string, IMessageRequest> dicModule = new Dictionary<string, IMessageRequest>();
+            Assembly Extend = Assembly.LoadFile(@"E:\Project\[Tools]\EVE_Bot\Bot.DerbyRequest\bin\Debug\Bot.DerbyRequest.dll");
+            var catalog = new AssemblyCatalog(Extend.CodeBase);
+            var container = new CompositionContainer(catalog, true);
+
+            foreach (ComposablePartDefinition Parts in catalog.Parts)
+            {
+                foreach (ExportDefinition Module in Parts.ExportDefinitions)
+                {
+                    List<Lazy<IMessageRequest>> lstModule = container.GetExports<IMessageRequest>(Module.ContractName).ToList();
+                    if (lstModule.Count != 1)
+                    {
+                        MessageBox.Show("Warning");
+                    }
+                    dicRequestModule.Add(Module.ContractName, lstModule[0]);
+                }
+            }
+            JORecvGroupMsg jORecvGroup = new JORecvGroupMsg();
+            jORecvGroup.message = "赛马娘 科学养马";
+            jORecvGroup.user_id = 173965593;
+            dicRequestModule["DerbyRequest"].Value.DealGroupRequest(jORecvGroup);
+
+        }
+
+        private void btnT2PriceMap_Click(object sender, EventArgs e)
+        {
+            //List<string> lstItemName = new List<string>();
+            //lstItemName.Add("碳化钨");
+            //lstItemName.Add("太赫兹超材料");
+            //lstItemName.Add("碳化晶体");
+            //lstItemName.Add("光子超材料");
+            //lstItemName.Add("碳化钛");
+            //lstItemName.Add("非线性超材料");
+            //lstItemName.Add("菲尔合金碳化物");
+            //lstItemName.Add("等离子体超材料");
+            //lstItemName.Add("纳米晶体管");
+            //lstItemName.Add("富勒化合物");
+            //lstItemName.Add("酚合成物");
+            //lstItemName.Add("多晶碳化硅纤维");
+            //lstItemName.Add("费米子冷凝物");
+            //lstItemName.Add("超级突触纤维");
+            //lstItemName.Add("铁磁胶体");
+            //lstItemName.Add("氮燃料块");
+            //lstItemName.Add("氦燃料块");
+            //lstItemName.Add("氧燃料块");
+            //lstItemName.Add("氢燃料块");
+            //lstItemName.Add("轧制钨合金");
+            //lstItemName.Add("硫酸");
+            //lstItemName.Add("微晶合金");
+            //lstItemName.Add("碳聚合物");
+            //lstItemName.Add("铬化钛");
+            //lstItemName.Add("二硼硅");
+            //lstItemName.Add("菲尔合金");
+            //lstItemName.Add("陶瓷粉末");
+            //lstItemName.Add("钷汞合金");
+            //lstItemName.Add("铥铪合金");
+            //lstItemName.Add("铁磁流体");
+            //lstItemName.Add("新汞合金");
+            //lstItemName.Add("铂锝合金");
+            //lstItemName.Add("镉化铯");
+            //lstItemName.Add("铪化钒");
+            //lstItemName.Add("六元复合物");
+            //lstItemName.Add("镝汞合金");
+            //lstItemName.Add("熔融冷凝物");
+            //lstItemName.Add("铯铬合金");
+            //lstItemName.Add("超氟化物");
+            //lstItemName.Add("稀土钷");
+            //lstItemName.Add("钨");
+            //lstItemName.Add("钴");
+            //lstItemName.Add("钛");
+            //lstItemName.Add("钪");
+            //lstItemName.Add("钕");
+            //lstItemName.Add("钷");
+            //lstItemName.Add("铥");
+            //lstItemName.Add("镝");
+            //lstItemName.Add("铯");
+            //lstItemName.Add("钒");
+            //lstItemName.Add("镉");
+            //lstItemName.Add("汞");
+            //lstItemName.Add("锝");
+            //lstItemName.Add("铪");
+            //lstItemName.Add("铂");
+            //lstItemName.Add("铬");
+            //lstItemName.Add("标准大气");
+            //lstItemName.Add("蒸发岩沉积物");
+            //lstItemName.Add("烃类");
+            //lstItemName.Add("硅酸盐");
+
+            //List<Item> lstItem = CEVEMarketFile.lstItem.FindAll(obj => lstItemName.Contains(obj.Name));
+
+            int width = 800;
+            int height = 600;
+            int margin = 10;
+
+
+            Bitmap bitmapobj = new Bitmap(width, height);
+            Graphics g = Graphics.FromImage(bitmapobj);
+            Font font = new Font("黑体", 12);
+            Color KyalPink = Color.FromArgb(255, 205, 235);
+            Color KyalPurp = Color.FromArgb(110, 100, 115);
+            SolidBrush brush = new SolidBrush(KyalPurp);//新建一个画刷
+            Pen p = new Pen(Color.Black, 3);//定义了一个画笔
+            g.Clear(KyalPink);
+            g.DrawRectangle(p, margin, margin, width - (2 * margin), height - (2 * margin));//
+            g.DrawString("碳化钨 \n碳化钨", font, brush, 12, 12);//
+
+            bitmapobj.Save("E:/test.png", ImageFormat.Png);//保存为输出流，否则页面上显示不出来
+            g.Dispose();//释放掉该资源
+        }
+
+        private void btnSover_Click(object sender, EventArgs e)
+        {
+            frmSovereignty frm = new frmSovereignty();
+            frm.Show();
+        }
+
+        private void btnAPITest_Click(object sender, EventArgs e)
+        {
+            frmAPITest frm = new frmAPITest();
+            frm.Show();
         }
     }
 }

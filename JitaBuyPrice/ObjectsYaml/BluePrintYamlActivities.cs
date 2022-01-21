@@ -7,21 +7,20 @@ using YamlDotNet.Serialization;
 
 namespace JitaBuyPrice.ObjectsYaml
 {
-    public class BluePrintYamlActivities : Dictionary<string, object>
+    public class BluePrintYamlActivities
     {
         [YamlMember(Alias = "copying", ApplyNamingConventions = false)]
-        public Dictionary<string, object> Copying = new Dictionary<string, object>();
+        public BluePrintYamlCopy Copying = new BluePrintYamlCopy();
         [YamlMember(Alias = "invention", ApplyNamingConventions = false)]
         public BluePrintYamlInvention Invention = new BluePrintYamlInvention();
         [YamlMember(Alias = "manufacturing", ApplyNamingConventions = false)]
-        public BluePrintYamlMaterials Manufacturing = new BluePrintYamlMaterials();
+        public BluePrintYamlManu Manufacturing = new BluePrintYamlManu();
         [YamlMember(Alias = "research_material", ApplyNamingConventions = false)]
-        public Dictionary<string, object> ResearchMaterial = new Dictionary<string, object>();
+        public BluePrintYamlRsrchMater ResearchMaterial = new BluePrintYamlRsrchMater();
         [YamlMember(Alias = "research_time", ApplyNamingConventions = false)]
-        public Dictionary<string, object> ResearchTime = new Dictionary<string, object>();
-
-        [YamlMember(Alias = "time", ApplyNamingConventions = false)]
-        public int Time = 0;
+        public BluePrintYamlRsrchTime ResearchTime = new BluePrintYamlRsrchTime();
+        [YamlMember(Alias = "reaction", ApplyNamingConventions = false)]
+        public BluePrintYamlReaction Reaction = new BluePrintYamlReaction();
 
     }
 }

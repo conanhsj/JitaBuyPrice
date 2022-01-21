@@ -198,18 +198,17 @@ namespace JitaBuyPrice.Classes
                 Price Cached = lstPriceCache.Find(X => X.TypeId == Item);
                 if (Cached != null)
                 {
-                    dicResult.Add(Item, Cached);
-                    continue;
-                    ////每次列表前5个去更新
-                    //if (lstPriceCache.IndexOf(Cached) > 5)
-                    //{
-                    //    dicResult.Add(Item, Cached);
-                    //    continue;
-                    //}
-                    //else
-                    //{
-                    //    lstPriceCache.Remove(Cached);
-                    //}
+                    //检查缓存
+                    if ((DateTime.Now - Cached.CachedTime).TotalMinutes < 20)
+                    {
+                        dicResult.Add(Item, Cached);
+                        continue;
+                    }
+                    else
+                    {
+                        lstPriceCache.Remove(Cached);
+                        Cached = null;
+                    }
                 }
 
                 //请求

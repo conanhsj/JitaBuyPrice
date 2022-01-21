@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bot.ExtendInterface">
+      <HintPath>Lib\Bot.ExtendInterface.dll</HintPath>
+    </Reference>
     <Reference Include="ClosedXML, Version=0.95.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ClosedXML.0.95.2\lib\net46\ClosedXML.dll</HintPath>
     </Reference>
@@ -41,10 +44,14 @@
     <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.32.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.32\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
@@ -67,11 +74,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ESICEVEAPI.cs" />
+    <Compile Include="Classes\CEVESwaggerAPI.cs" />
     <Compile Include="Classes\CEVEMarketAPI.cs" />
     <Compile Include="Classes\CEVEMarketFile.cs" />
+    <Compile Include="Classes\OtherNetApis.cs" />
+    <Compile Include="Classes\SDEReader.cs" />
     <Compile Include="Commons.cs" />
     <Compile Include="Controls\ListViewSort.cs" />
+    <Compile Include="Forms\frmAPITest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAPITest.Designer.cs">
+      <DependentUpon>frmAPITest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmBrave.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +129,12 @@
     <Compile Include="Forms\frmShips.Designer.cs">
       <DependentUpon>frmShips.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmSovereignty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSovereignty.Designer.cs">
+      <DependentUpon>frmSovereignty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmT1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,15 +174,31 @@
     <Compile Include="Helper\FilesHelper.cs" />
     <Compile Include="Helper\SdeFileReader.cs" />
     <Compile Include="ObjectsJson\BluePrintJson.cs" />
+    <Compile Include="ObjectsJson\JOAlliance.cs" />
+    <Compile Include="ObjectsJson\JOCorporation.cs" />
+    <Compile Include="ObjectsJson\JOFaction.cs" />
+    <Compile Include="ObjectsJson\JOIDtoName.cs" />
+    <Compile Include="ObjectsJson\JOSolarSystem.cs" />
+    <Compile Include="ObjectsJson\JOSovereignty.cs" />
     <Compile Include="ObjectsJson\Price.cs" />
     <Compile Include="ObjectsJson\PriceInfo.cs" />
+    <Compile Include="ObjectsOther\SetuData.cs" />
+    <Compile Include="ObjectsOther\SetuResponce.cs" />
     <Compile Include="ObjectsYaml\BluePrintYamlActivities.cs" />
+    <Compile Include="ObjectsYaml\BluePrintYamlCopy.cs" />
+    <Compile Include="ObjectsYaml\BluePrintYamlReaction.cs" />
+    <Compile Include="ObjectsYaml\BluePrintYamlRsrchTime.cs" />
+    <Compile Include="ObjectsYaml\BluePrintYamlRsrchMater.cs" />
     <Compile Include="ObjectsYaml\BluePrintYamlOther.cs" />
     <Compile Include="ObjectsYaml\BluePrintYaml.cs" />
     <Compile Include="ObjectsYaml\BluePrintYamlManu.cs" />
     <Compile Include="ObjectsYaml\BluePrintYamlInvention.cs" />
     <Compile Include="ObjectsYaml\MaterialsInfo.cs" />
     <Compile Include="ObjectsYaml\BluePrintYamlMaterials.cs" />
+    <Compile Include="Objects\BluePrint.cs" />
+    <Compile Include="Objects\KeyPair.cs" />
+    <Compile Include="Objects\SearchIDResult.cs" />
+    <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\ESIAssets.cs" />
     <Compile Include="Objects\IceChart.cs" />
     <Compile Include="Objects\BriefChart.cs" />
@@ -169,6 +206,7 @@
     <Compile Include="Objects\Galaxy.cs" />
     <Compile Include="Objects\Item.cs" />
     <Compile Include="ObjectsYaml\Materials.cs" />
+    <Compile Include="Objects\BluePrintMtls.cs" />
     <Compile Include="Objects\Ore.cs" />
     <Compile Include="Objects\Reaction.cs" />
     <Compile Include="Objects\Regions.cs" />
@@ -181,8 +219,14 @@
     <Compile Include="Objects\T2Product.cs" />
     <Compile Include="Objects\T2Base.cs" />
     <Compile Include="Objects\T1Product.cs" />
+    <Compile Include="Objects\Wormhole.cs" />
+    <Compile Include="Objects\WormholeSystem.cs" />
+    <Compile Include="Objects\ZGJMDivination.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\frmAPITest.resx">
+      <DependentUpon>frmAPITest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmBrave.resx">
       <DependentUpon>frmBrave.cs</DependentUpon>
     </EmbeddedResource>
@@ -203,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmShips.resx">
       <DependentUpon>frmShips.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSovereignty.resx">
+      <DependentUpon>frmSovereignty.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmT1.resx">
       <DependentUpon>frmT1.cs</DependentUpon>

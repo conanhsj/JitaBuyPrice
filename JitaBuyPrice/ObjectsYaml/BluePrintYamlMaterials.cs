@@ -11,7 +11,7 @@ namespace JitaBuyPrice.ObjectsYaml
     {
         public string Name = string.Empty;
         [YamlMember(Alias = "typeID", ApplyNamingConventions = false)]
-        public string TypeID = string.Empty;
+        public int TypeID = 0;
         [YamlMember(Alias = "quantity", ApplyNamingConventions = false)]
         public int Quantity = 0;
 

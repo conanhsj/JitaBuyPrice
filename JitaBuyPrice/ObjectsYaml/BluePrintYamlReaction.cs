@@ -7,7 +7,7 @@ using YamlDotNet.Serialization;
 
 namespace JitaBuyPrice.ObjectsYaml
 {
-    public class BluePrintYamlManu
+    public class BluePrintYamlReaction
     {
         [YamlMember(Alias = "time", ApplyNamingConventions = false)]
         public int Time = 0;

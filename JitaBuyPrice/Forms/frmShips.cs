@@ -16,6 +16,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = ClosedXML.Excel;
 
 namespace JitaBuyPrice.Forms
 {
@@ -74,10 +75,10 @@ namespace JitaBuyPrice.Forms
                 return;
             }
             string strUserID = "90076612";
-            ESICEVEAPI.ReadAssets(strUserID, strAccessToken);
+            CEVESwaggerAPI.ReadAssets(strUserID, strAccessToken);
 
             List<Item> lstBPItem = new List<Item>();
-            foreach (ESIAssets item in ESICEVEAPI.lstAssets)
+            foreach (ESIAssets item in CEVESwaggerAPI.lstAssets)
             {
                 //去除重复
                 if (lstBPItem.Find(obj => obj.Name == item.item_Name) != null)
@@ -150,7 +151,7 @@ namespace JitaBuyPrice.Forms
 
             foreach (Regions regionID in lstRegion)
             {
-                List<string> lstTypeID = ESICEVEAPI.ReadMarketTypeID(regionID.Region_ID);
+                List<string> lstTypeID = CEVESwaggerAPI.ReadMarketTypeID(regionID.Region_ID);
 
                 string strProductList = FilesHelper.ReadJsonFile("MyProducts - Fix");
                 List<Item> lstProduct = JsonConvert.DeserializeObject<List<Item>>(strProductList);
@@ -256,7 +257,7 @@ namespace JitaBuyPrice.Forms
             foreach (Regions regionID in lstRegion)
             {
                 //读取市场商品
-                List<string> lstTypeID = ESICEVEAPI.ReadMarketTypeID(regionID.Region_ID);
+                List<string> lstTypeID = CEVESwaggerAPI.ReadMarketTypeID(regionID.Region_ID);
 
                 List<Item> lstBuyBP = new List<Item>();
 
@@ -304,7 +305,19 @@ namespace JitaBuyPrice.Forms
             //查找T1原料
             //GetT1OnlyMaterials();
 
-            FilesHelper.ReadBluePrintFile();
+            //List<string> lstElement = new List<string>() { "铬", "钴", "铂", "铪" };
+            //List<string> lstTypeID = CEVEMarketFile.lstItem.FindAll(Xitem => lstElement.Contains(Xitem.Name)).Select(obj => obj.TypeID).ToList();
+
+
+            List<BluePrint> lstT1 = JsonConvert.DeserializeObject<List<BluePrint>>(FilesHelper.ReadJsonFile("SDE\\BluePrint"));
+
+
+            //List<string> lstTypeID = new List<string>() { "16665" };
+            List<string> lstTypeID = new List<string>() { "16678" };
+
+            List<BluePrint> lstBase = lstT1.FindAll(BlueP => BlueP.Materials.FindAll(Mtls => lstTypeID.Contains(Mtls.TypeID.ToString())).Count > 0);
+
+
 
             //List<Materials> lstT1 = JsonConvert.DeserializeObject<List<Materials>>(FilesHelper.ReadJsonFile("Materials\\T1Only"));
 
@@ -321,7 +334,7 @@ namespace JitaBuyPrice.Forms
 
         private void GetT1OnlyMaterials()
         {
-            List<string> lstTypeID = ESICEVEAPI.ReadMarketTypeID("10000002");
+            List<string> lstTypeID = CEVESwaggerAPI.ReadMarketTypeID("10000002");
             List<Materials> lstMaterials = FilesHelper.ReadMaterialsFile();
             List<Materials> lstT1 = new List<Materials>();
             foreach (Materials mat in lstMaterials)
@@ -354,6 +367,92 @@ namespace JitaBuyPrice.Forms
             //添加换行符
             strContent = strContent.Replace("},", "},\n");
             FilesHelper.OutputJsonFile("Materials\\T1Only", strContent);
+        }
+
+
+        private static List<BluePrint> lstBluePrint = JsonConvert.DeserializeObject<List<BluePrint>>(FilesHelper.ReadJsonFile("SDE\\BluePrint"));
+        private void btnFullMetal_Click(object sender, EventArgs e)
+        {
+
+
+            string strKeyWord = "毒蜥级";
+            string strPath = Application.StartupPath + "\\EXCEL\\" + strKeyWord + "制造方案";
+            Excel.XLWorkbook xFile = new Excel.XLWorkbook();
+            Excel.IXLWorksheet xLSheet = xFile.AddWorksheet();
+
+            int nRow = 1;
+            int nCol = 1;
+
+            OutputBluePrintResult(xLSheet, strKeyWord, ref nRow, ref nCol);
+
+            xFile.SaveAs(strPath + ".xlsx");
+            MessageBox.Show("计算完成,路径:" + strPath);
+        }
+
+        private static void OutputBluePrintResult(Excel.IXLWorksheet xLSheet, string strKeyWord, ref int nRow, ref int nCol)
+        {
+            BluePrint bluePrint = lstBluePrint.Find(Item => Item.BPName == strKeyWord || Item.ProductName == strKeyWord);
+
+            if (bluePrint == null)
+            {
+                return;
+            }
+
+            //价格查询
+            List<string> lstSearch = new List<string>();
+            lstSearch.Add(bluePrint.ProductID.ToString());
+            foreach (BluePrintMtls Mtls in bluePrint.Materials)
+            {
+                lstSearch.Add(Mtls.TypeID.ToString());
+            }
+            Dictionary<string, Price> dicResult = CEVEMarketAPI.SearchPriceJson(lstSearch);
+
+            xLSheet.Cell(nRow, nCol).Value = "产物";
+            xLSheet.Cell(nRow, nCol + 1).Value = "流程产量";
+            xLSheet.Cell(nRow, nCol + 2).Value = "流程数";
+            xLSheet.Cell(nRow, nCol + 3).Value = "物品ID";
+            xLSheet.Cell(nRow, nCol + 4).Value = "卖单价";
+            xLSheet.Cell(nRow, nCol + 5).Value = "收单价";
+            nRow++;
+
+            xLSheet.Cell(nRow, nCol).Value = bluePrint.ProductName;
+            xLSheet.Cell(nRow, nCol + 1).Value = bluePrint.ProductQty;
+            xLSheet.Cell(nRow, nCol + 2).Value = 1;
+            xLSheet.Cell(nRow, nCol + 3).Value = bluePrint.ProductID;
+            //double dMtlsSell = dicResult[Mtls.TypeID.ToString()].sell.min * Math.Ceiling(dQty);
+            xLSheet.Cell(nRow, nCol + 4).Value = dicResult[bluePrint.ProductID.ToString()].sell.min;
+            xLSheet.Cell(nRow, nCol + 5).Value = dicResult[bluePrint.ProductID.ToString()].buy.max;
+            nRow++;
+
+
+            xLSheet.Cell(nRow, nCol).Value = "材料";
+            xLSheet.Cell(nRow, nCol + 1).Value = "需求量";
+            xLSheet.Cell(nRow, nCol + 2).Value = "总需求量";
+            xLSheet.Cell(nRow, nCol + 3).Value = "物品ID";
+            xLSheet.Cell(nRow, nCol + 4).Value = "卖单价";
+            xLSheet.Cell(nRow, nCol + 5).Value = "收单价";
+            nRow++;
+
+
+            List<string> lstNext = new List<string>();
+            foreach (BluePrintMtls Mtls in bluePrint.Materials)
+            {
+                lstNext.Add(Mtls.Name);
+                xLSheet.Cell(nRow, nCol).Value = Mtls.Name;
+                xLSheet.Cell(nRow, nCol + 1).Value = Mtls.Qty;
+                xLSheet.Cell(nRow, nCol + 2).Value = Mtls.Qty;
+                xLSheet.Cell(nRow, nCol + 3).Value = Mtls.TypeID;
+                xLSheet.Cell(nRow, nCol + 4).Value = dicResult[Mtls.TypeID.ToString()].sell.min;
+                xLSheet.Cell(nRow, nCol + 5).Value = dicResult[Mtls.TypeID.ToString()].buy.max;
+                nRow++;
+            }
+            nRow++;
+
+            foreach (string strNextName in lstNext)
+            {
+                OutputBluePrintResult(xLSheet, strNextName, ref nRow, ref nCol);
+            }
+            return;
         }
     }
 }

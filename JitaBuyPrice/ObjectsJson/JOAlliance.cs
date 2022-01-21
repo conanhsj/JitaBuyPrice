@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace JitaBuyPrice.ObjectsJson
 {
-    public class PriceInfo
+    public class JOAlliance
     {
-        public double max = 0;
-        public double min = 0;
-        public long volume = 0;
+        public long alliance_id;
+        public string alliance_name;
     }
 }

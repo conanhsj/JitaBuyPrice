@@ -34,6 +34,7 @@
             this.btnRegionProduct = new System.Windows.Forms.Button();
             this.btnBuyBP = new System.Windows.Forms.Button();
             this.btnRecycle = new System.Windows.Forms.Button();
+            this.btnFullMetal = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGetID
@@ -96,11 +97,22 @@
             this.btnRecycle.UseVisualStyleBackColor = true;
             this.btnRecycle.Click += new System.EventHandler(this.btnRecycle_Click);
             // 
+            // btnFullMetal
+            // 
+            this.btnFullMetal.Location = new System.Drawing.Point(12, 188);
+            this.btnFullMetal.Name = "btnFullMetal";
+            this.btnFullMetal.Size = new System.Drawing.Size(75, 23);
+            this.btnFullMetal.TabIndex = 6;
+            this.btnFullMetal.Text = "全拆分";
+            this.btnFullMetal.UseVisualStyleBackColor = true;
+            this.btnFullMetal.Click += new System.EventHandler(this.btnFullMetal_Click);
+            // 
             // frmShips
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(296, 283);
+            this.Controls.Add(this.btnFullMetal);
             this.Controls.Add(this.btnRecycle);
             this.Controls.Add(this.btnBuyBP);
             this.Controls.Add(this.btnRegionProduct);
@@ -121,5 +133,6 @@
         private System.Windows.Forms.Button btnRegionProduct;
         private System.Windows.Forms.Button btnBuyBP;
         private System.Windows.Forms.Button btnRecycle;
+        private System.Windows.Forms.Button btnFullMetal;
     }
 }

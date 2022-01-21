@@ -31,7 +31,6 @@
             this.btnMyRoom = new System.Windows.Forms.Button();
             this.btnBrain = new System.Windows.Forms.Button();
             this.btnRecycle = new System.Windows.Forms.Button();
-            this.btnDrone = new System.Windows.Forms.Button();
             this.btnT2High = new System.Windows.Forms.Button();
             this.btnT2Work = new System.Windows.Forms.Button();
             this.btnAPICharaID = new System.Windows.Forms.Button();
@@ -44,6 +43,11 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnShips = new System.Windows.Forms.Button();
             this.btnPriceCached = new System.Windows.Forms.Button();
+            this.btnSDEBluePrint = new System.Windows.Forms.Button();
+            this.btnItem = new System.Windows.Forms.Button();
+            this.btnT2PriceMap = new System.Windows.Forms.Button();
+            this.btnSover = new System.Windows.Forms.Button();
+            this.btnAPITest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMyRoom
@@ -76,16 +80,6 @@
             this.btnRecycle.UseVisualStyleBackColor = true;
             this.btnRecycle.Click += new System.EventHandler(this.btnRecycle_Click);
             // 
-            // btnDrone
-            // 
-            this.btnDrone.Location = new System.Drawing.Point(364, 93);
-            this.btnDrone.Name = "btnDrone";
-            this.btnDrone.Size = new System.Drawing.Size(75, 23);
-            this.btnDrone.TabIndex = 7;
-            this.btnDrone.Text = "无人机语";
-            this.btnDrone.UseVisualStyleBackColor = true;
-            this.btnDrone.Click += new System.EventHandler(this.btnDrone_Click);
-            // 
             // btnT2High
             // 
             this.btnT2High.Location = new System.Drawing.Point(123, 93);
@@ -108,7 +102,7 @@
             // 
             // btnAPICharaID
             // 
-            this.btnAPICharaID.Location = new System.Drawing.Point(364, 52);
+            this.btnAPICharaID.Location = new System.Drawing.Point(515, 52);
             this.btnAPICharaID.Name = "btnAPICharaID";
             this.btnAPICharaID.Size = new System.Drawing.Size(75, 23);
             this.btnAPICharaID.TabIndex = 12;
@@ -178,7 +172,7 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(364, 12);
+            this.btnLogin.Location = new System.Drawing.Point(515, 12);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
             this.btnLogin.TabIndex = 19;
@@ -198,7 +192,7 @@
             // 
             // btnPriceCached
             // 
-            this.btnPriceCached.Location = new System.Drawing.Point(364, 177);
+            this.btnPriceCached.Location = new System.Drawing.Point(515, 137);
             this.btnPriceCached.Name = "btnPriceCached";
             this.btnPriceCached.Size = new System.Drawing.Size(75, 23);
             this.btnPriceCached.TabIndex = 21;
@@ -206,11 +200,66 @@
             this.btnPriceCached.UseVisualStyleBackColor = true;
             this.btnPriceCached.Click += new System.EventHandler(this.btnPriceCached_Click);
             // 
+            // btnSDEBluePrint
+            // 
+            this.btnSDEBluePrint.Location = new System.Drawing.Point(385, 12);
+            this.btnSDEBluePrint.Name = "btnSDEBluePrint";
+            this.btnSDEBluePrint.Size = new System.Drawing.Size(75, 23);
+            this.btnSDEBluePrint.TabIndex = 22;
+            this.btnSDEBluePrint.Text = "SDE蓝图";
+            this.btnSDEBluePrint.UseVisualStyleBackColor = true;
+            this.btnSDEBluePrint.Click += new System.EventHandler(this.btnSDEBluePrint_Click);
+            // 
+            // btnItem
+            // 
+            this.btnItem.Location = new System.Drawing.Point(385, 52);
+            this.btnItem.Name = "btnItem";
+            this.btnItem.Size = new System.Drawing.Size(75, 23);
+            this.btnItem.TabIndex = 23;
+            this.btnItem.Text = "输出物品ID";
+            this.btnItem.UseVisualStyleBackColor = true;
+            this.btnItem.Click += new System.EventHandler(this.btnItem_Click);
+            // 
+            // btnT2PriceMap
+            // 
+            this.btnT2PriceMap.Location = new System.Drawing.Point(123, 177);
+            this.btnT2PriceMap.Name = "btnT2PriceMap";
+            this.btnT2PriceMap.Size = new System.Drawing.Size(75, 23);
+            this.btnT2PriceMap.TabIndex = 24;
+            this.btnT2PriceMap.Text = "T2价格图";
+            this.btnT2PriceMap.UseVisualStyleBackColor = true;
+            this.btnT2PriceMap.Click += new System.EventHandler(this.btnT2PriceMap_Click);
+            // 
+            // btnSover
+            // 
+            this.btnSover.Location = new System.Drawing.Point(515, 93);
+            this.btnSover.Name = "btnSover";
+            this.btnSover.Size = new System.Drawing.Size(75, 23);
+            this.btnSover.TabIndex = 25;
+            this.btnSover.Text = "主权";
+            this.btnSover.UseVisualStyleBackColor = true;
+            this.btnSover.Click += new System.EventHandler(this.btnSover_Click);
+            // 
+            // btnAPITest
+            // 
+            this.btnAPITest.Location = new System.Drawing.Point(515, 177);
+            this.btnAPITest.Name = "btnAPITest";
+            this.btnAPITest.Size = new System.Drawing.Size(75, 23);
+            this.btnAPITest.TabIndex = 26;
+            this.btnAPITest.Text = "机器人测试";
+            this.btnAPITest.UseVisualStyleBackColor = true;
+            this.btnAPITest.Click += new System.EventHandler(this.btnAPITest_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(489, 230);
+            this.ClientSize = new System.Drawing.Size(619, 353);
+            this.Controls.Add(this.btnAPITest);
+            this.Controls.Add(this.btnSover);
+            this.Controls.Add(this.btnT2PriceMap);
+            this.Controls.Add(this.btnItem);
+            this.Controls.Add(this.btnSDEBluePrint);
             this.Controls.Add(this.btnPriceCached);
             this.Controls.Add(this.btnShips);
             this.Controls.Add(this.btnLogin);
@@ -223,7 +272,6 @@
             this.Controls.Add(this.btnAPICharaID);
             this.Controls.Add(this.btnT2Work);
             this.Controls.Add(this.btnT2High);
-            this.Controls.Add(this.btnDrone);
             this.Controls.Add(this.btnRecycle);
             this.Controls.Add(this.btnBrain);
             this.Controls.Add(this.btnMyRoom);
@@ -238,7 +286,6 @@
         private System.Windows.Forms.Button btnMyRoom;
         private System.Windows.Forms.Button btnBrain;
         private System.Windows.Forms.Button btnRecycle;
-        private System.Windows.Forms.Button btnDrone;
         private System.Windows.Forms.Button btnT2High;
         private System.Windows.Forms.Button btnT2Work;
         private System.Windows.Forms.Button btnAPICharaID;
@@ -251,6 +298,11 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnShips;
         private System.Windows.Forms.Button btnPriceCached;
+        private System.Windows.Forms.Button btnSDEBluePrint;
+        private System.Windows.Forms.Button btnItem;
+        private System.Windows.Forms.Button btnT2PriceMap;
+        private System.Windows.Forms.Button btnSover;
+        private System.Windows.Forms.Button btnAPITest;
     }
 }
 

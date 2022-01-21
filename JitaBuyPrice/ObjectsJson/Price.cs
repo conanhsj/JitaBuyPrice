@@ -13,5 +13,6 @@ namespace JitaBuyPrice.ObjectsJson
         public PriceInfo all;
         public PriceInfo buy;
         public PriceInfo sell;
+        public DateTime CachedTime;
     }
 }

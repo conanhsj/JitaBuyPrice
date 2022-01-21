@@ -1,4 +1,5 @@
-﻿using JitaBuyPrice.ObjectsJson;
+﻿using JitaBuyPrice.Objects;
+using JitaBuyPrice.ObjectsJson;
 using JitaBuyPrice.ObjectsYaml;
 using System;
 using System.Collections.Generic;
@@ -25,8 +26,8 @@ namespace JitaBuyPrice.Helper
                 sw.Write(strContent);
             }
             //Environment.
-
         }
+
         public static string ReadJsonFile(string strFileName)
         {
             string strContents;
@@ -68,13 +69,14 @@ namespace JitaBuyPrice.Helper
             return lstMaterials;
         }
 
-        public static List<BluePrintJson> ReadBluePrintFile()
+        public static List<BluePrint> ReadBluePrintFile()
         {
             string strBasePath = Application.StartupPath;
 
             var deserializer = new YamlDotNet.Serialization.Deserializer();
 
-            List<BluePrintJson> lstBluePrint = new List<BluePrintJson>();
+            List<BluePrint> lstBluePrint = new List<BluePrint>();
+            List<int> lstUnknown = new List<int>();
 
 
             using (var sr = new StreamReader(strBasePath + @"\SDE\FSD\blueprints.yaml", Encoding.UTF8))
@@ -86,18 +88,55 @@ namespace JitaBuyPrice.Helper
                 var target = deserializer.Deserialize<Dictionary<string, BluePrintYaml>>(sr);
                 foreach (string item in target.Keys)
                 {
-                    BluePrintJson bpItem = new BluePrintJson();
-
+                    BluePrint bpItem = new BluePrint();
+          
                     if (int.Parse(item) != target[item].TypeID)
                     {
                         MessageBox.Show("Warning");
                     }
-                    bpItem.TypeID = item;
+                    bpItem.TypeID = target[item].TypeID;
+                    if (target[item].Activities.Manufacturing.lstProducts.Count == 1)
+                    {
+                        bpItem.ProductID = target[item].Activities.Manufacturing.lstProducts[0].TypeID;
+                        bpItem.ProductQty = target[item].Activities.Manufacturing.lstProducts[0].Quantity;
+
+                        foreach(BluePrintYamlMaterials ymlMaterials in target[item].Activities.Manufacturing.lstMaterials)
+                        {
+                            BluePrintMtls mtls = new BluePrintMtls();
+                            mtls.TypeID = ymlMaterials.TypeID;
+                            mtls.Qty = ymlMaterials.Quantity;
+                            bpItem.Materials.Add(mtls);
+                        }
+                        lstBluePrint.Add(bpItem);
+                    }
+                    else if (target[item].Activities.Reaction.lstProducts.Count == 1)
+                    {
+                        bpItem.ProductID = target[item].Activities.Reaction.lstProducts[0].TypeID;
+                        bpItem.ProductQty = target[item].Activities.Reaction.lstProducts[0].Quantity;
+
+                        foreach (BluePrintYamlMaterials ymlMaterials in target[item].Activities.Reaction.lstMaterials)
+                        {
+                            BluePrintMtls mtls = new BluePrintMtls();
+                            mtls.TypeID = ymlMaterials.TypeID;
+                            mtls.Qty = ymlMaterials.Quantity;
+                            bpItem.Materials.Add(mtls);
+                        }
+                        lstBluePrint.Add(bpItem);
+                    }
+                    else
+                    {
+                        lstUnknown.Add(target[item].TypeID);
+                    }
+
+                    
+                    //if (target[item].Activities.ContainsKey("manufacturing"))
+                    //{
+                    //    target[item].Activities["manufacturing"]["products"]["products"];
+                    //}
 
                     //bpItem.Materials = target[item].Activities["manufacturing"].Manufacturing["materials"];
 
                     //bpItem.Materials = target[item];
-                    lstBluePrint.Add(bpItem);
                 }
                 //foreach(object item in target)
                 //strContents = sr.ReadToEnd();

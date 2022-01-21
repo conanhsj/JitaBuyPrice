@@ -7,7 +7,7 @@ using YamlDotNet.Serialization;
 
 namespace JitaBuyPrice.ObjectsYaml
 {
-    public class BluePrintYamlInvention : Dictionary<string, BluePrintYamlInvention>
+    public class BluePrintYamlInvention
     {
         [YamlMember(Alias = "time", ApplyNamingConventions = false)]
         public int Time = 0;
@@ -17,5 +17,8 @@ namespace JitaBuyPrice.ObjectsYaml
 
         [YamlMember(Alias = "products", ApplyNamingConventions = false)]
         public List<BluePrintYamlOther> lstProducts = new List<BluePrintYamlOther>();
+
+        [YamlMember(Alias = "skills", ApplyNamingConventions = false)]
+        public List<BluePrintYamlOther> lstSkills = new List<BluePrintYamlOther>();
     }
 }

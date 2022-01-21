@@ -1,4 +1,7 @@
-﻿using System;
+﻿using JitaBuyPrice.Helper;
+using JitaBuyPrice.ObjectsJson;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +37,10 @@ namespace JitaBuyPrice.Classes
                 {
                     ReadItem(Isheet);
                 }
+                //if (Isheet.Name == "星系列表")
+                //{
+                //    ReadSolarSystem(Isheet);
+                //}
             }
         }
         private static void ReadItem(Excel.IXLWorksheet shSheet)
@@ -57,6 +64,25 @@ namespace JitaBuyPrice.Classes
             }
         }
 
+        private static void ReadSolarSystem(Excel.IXLWorksheet shSheet)
+        {
+            int nRow = 1;
+            List<JOSolarSystem> lstSystem = new List<JOSolarSystem>();
+            //第一行是表头，行号从1开始
+            for (nRow = 2; shSheet.Cell(nRow, 1).GetString() != String.Empty; nRow++)
+            {
+                JOSolarSystem item = new JOSolarSystem();
+                item.system_id = (long)shSheet.Cell(nRow, 1).GetDouble();
+                item.system_name = shSheet.Cell(nRow, 2).GetString();
+                item.constellation_id = (long)shSheet.Cell(nRow, 3).GetDouble();
+                item.constellation_name = shSheet.Cell(nRow, 4).GetString();
+                item.region_id = (long)shSheet.Cell(nRow, 5).GetDouble();
+                item.region_name = shSheet.Cell(nRow, 6).GetString();
+                lstSystem.Add(item);
+            }
+
+            FilesHelper.OutputJsonFile("Sovereignty\\UniverseSystem", JsonConvert.SerializeObject(lstSystem, Formatting.Indented));
+        }
         public static void ExcelWorkingReader(string strPath)
         {
             Excel.XLWorkbook xFile = new Excel.XLWorkbook(strPath);
@@ -294,7 +320,6 @@ namespace JitaBuyPrice.Classes
                 lstP4Break.Add(item);
             }
         }
-
         private static double ReadDouble(string strCell)
         {
             double dRnt = 0;

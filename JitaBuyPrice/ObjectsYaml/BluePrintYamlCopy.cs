@@ -7,16 +7,16 @@ using YamlDotNet.Serialization;
 
 namespace JitaBuyPrice.ObjectsYaml
 {
-    public class BluePrintYamlManu
+    public class BluePrintYamlCopy
     {
         [YamlMember(Alias = "time", ApplyNamingConventions = false)]
         public int Time = 0;
         //public  manufacturing
         [YamlMember(Alias = "materials", ApplyNamingConventions = false)]
-        public List<BluePrintYamlMaterials> lstMaterials = new List<BluePrintYamlMaterials>();
+        public List<BluePrintYamlOther> lstMaterials = new List<BluePrintYamlOther>();
 
         [YamlMember(Alias = "products", ApplyNamingConventions = false)]
-        public List<BluePrintYamlMaterials> lstProducts = new List<BluePrintYamlMaterials>();
+        public List<BluePrintYamlOther> lstProducts = new List<BluePrintYamlOther>();
 
         [YamlMember(Alias = "skills", ApplyNamingConventions = false)]
         public List<BluePrintYamlOther> lstSkills = new List<BluePrintYamlOther>();
