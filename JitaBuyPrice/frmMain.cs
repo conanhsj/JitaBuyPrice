@@ -802,8 +802,10 @@ namespace JitaBuyPrice
 
         private void btnAPITest_Click(object sender, EventArgs e)
         {
-            frmAPITest frm = new frmAPITest();
-            frm.Show();
+            //frmAPITest frm = new frmAPITest();
+            //frm.Show();
+            Dictionary<string, object> reader = EveSdeReader.SdeReader.ReadYmlFile("blueprints");
+
         }
     }
 }
